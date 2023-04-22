@@ -1,0 +1,96 @@
+
+.subjectLanding {
+    background: url("../../assets/header-photo.png") no-repeat top center;
+    background-size: cover;
+    width: 100%;
+    min-height: 750px !important;
+    padding: 4em 0 4em 8em;
+    margin-top: 4em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    text-align: left;
+}
+
+.ui.containerFrame {
+    display: flex;
+    /*justify-content: center;*/
+    gap: 1em;
+    text-align: left;
+
+}
+
+.button.find-a-tutor-button {
+    background-color: #28a745;
+    color: #fff;
+    padding: 1em 2em;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 0.28571429rem;
+    transition: background-color 0.2s;
+}
+
+.button.find-a-tutor-button:hover {
+    background-color: #1e7e34;
+}
+
+.inverted-button.register-button {
+    background-color: #fff;
+    color: #28a745;
+    padding: 1em 2em;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 0.28571429rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.inverted-button.register-button:hover {
+    background-color: #f1f1f1;
+    color: #289728;
+}
+
+.pricing-header {
+    text-align: center;
+    line-height: 50px;
+}
+
+.pricing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 2em;
+}
+
+.pricing-column {
+    flex: 1;
+    text-align: center;
+    height: 300px; /*calc(33.333% - 1em); */
+    max-width: calc(33.333% - 1em);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* space-between? */
+    margin: 0 1em;
+}
+
+.pricing-image {
+    width: 150px;
+    height: auto;
+    align-self: center;
+}
+
+.universityPricingIcon {
+    margin-top: 10px;
+    width: 175px;
+}
+
+.schoolPricingIcon {
+    width: 160px;
+}
+
+.pricing-text {
+    margin-top: 20px;
+    text-align: center;
+    line-height: 20px;
+}

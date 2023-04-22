@@ -1,0 +1,75 @@
+
+/* Global */
+body,
+p,
+a,
+.ui,
+.ui.card {
+    font-family: "Assistant", "Roboto", sans-serif !important;
+}
+
+body::selection {
+    background-color: #cce2ff;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+/* Body */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    min-width: 320px;
+    background: #fff;
+    font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.4285em;
+    color: rgba(0, 0, 0, 0.87);
+    font-smoothing: antialiased;
+    height: 100%;
+    display: block;
+}
+
+.greyH2 {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 5px;
+    font-family: 'Comfortaa', 'Quicksand', sans-serif !important;
+}
+
+.mainH1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: bold;
+    font-family: 'Quicksand Light', sans-serif !important;
+}
+
+.whiteH3 {
+    width: 40%;
+    font-size: 22px;
+    color: #fff;
+    margin: 1.5em 0;
+    font-family: 'Quicksand Light', sans-serif !important;
+}
+
+.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* Checkbox */
+.form-check-input:checked {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+/* Submit button */
+.btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
