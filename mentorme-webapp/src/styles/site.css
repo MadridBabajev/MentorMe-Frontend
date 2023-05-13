@@ -30,7 +30,7 @@ body {
 }
 
 .greyH2 {
-    font-size: 20px;
+    font-size: 22px;
     color: #555;
     margin-bottom: 5px;
     font-family: 'Comfortaa', 'Quicksand', sans-serif !important;
@@ -72,4 +72,53 @@ body {
 .btn-primary:focus {
     background-color: #218838;
     border-color: #1e7e34;
+}
+
+.simple-text {
+    font-size: 18px;
+    font-family: 'Arial', sans-serif;
+}
+
+.error-page-content {
+    font-size: 1.5em;
+    text-align: center;
+    margin: 300px 0;
+}
+
+.error-message {
+    font-weight: bold;
+}
+
+/* Loader */
+.loader {
+    display: inline-block;
+    width: 180px;
+    height: 180px;
+    border: 7px solid #f3f3f3;
+    border-top: 7px solid #28a745;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader-container {
+    display: flex;
+    flex-direction: column; /* Aligns children (loader and text) vertically */
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    width: 70vw;
+}
+
+.loading-text {
+    display: block;
+    color: #28a745;
+    text-align: center;
+    padding-top: 20px;
+    font-size: 1.75em;
+    font-weight: bolder;
 }

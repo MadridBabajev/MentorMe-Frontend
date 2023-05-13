@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import PricingColumnProps from "../types/props/PricingColumnProps";
+import IPricingColumnProps from "../types/props/IPricingColumnProps";
 
 import "../styles/pages/home.css"
 import schoolPricingIcon from "../assets/pricing-icons/pricing-school-icon.svg"
@@ -75,7 +75,7 @@ const PricingContainer = () => {
 }
 
 const PricingColumn = ({imageSrc, className, title, description, price,}
-                           : PricingColumnProps) => {
+                           : IPricingColumnProps) => {
     return (
         <div className="pricing-column">
             <img

@@ -1,7 +1,7 @@
 
 import { MouseEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IRegisterData } from "../types/dto/IRegisterData";
+import { IRegisterData } from "../types/dto/identity/IRegisterData";
 import { IdentityService } from "../services/app-services/IdentityService";
 import JwtContext from "../types/context/JwtContext";
 import RegisterView from "./route-views/RegisterView";

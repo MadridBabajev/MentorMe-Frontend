@@ -1,5 +1,5 @@
 import {createContext} from "react";
-import IJWTResponse from "../dto/IJWTResponse";
+import IJWTResponse from "../dto/identity/IJWTResponse";
 
 // TODO: Make language context as well?
 

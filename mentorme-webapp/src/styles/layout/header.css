@@ -44,12 +44,32 @@
     width: 8rem;
 }
 
-.header-login-btn {
+.header-login-logout-btn {
     color: black;
     background-color: #28a745;
-    /*box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);*/
 }
 
-.header-login-btn:hover {
-    background-color: #1e7e34;
+.header-login-logout-btn:hover {
+    background-color: #1e7e34; /* or any other darker green color */
+}
+
+.email-icon-container {
+    position: relative;
+    padding: 25px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgray;
+}
+
+.email-icon-container:hover {
+    background-color: gray;
+}
+
+.email-icon {
+    width: 30px;
+    height: 30px;
 }

@@ -1,7 +1,7 @@
-import {ILoginData} from "../dto/ILoginData";
+import {ILoginData} from "../dto/identity/ILoginData";
 import {MouseEvent} from "react";
 
-export interface LoginProps {
+export interface ILoginProps {
     values: ILoginData;
     validationErrors: string[];
     handleChange: (target: EventTarget & HTMLInputElement) => void;

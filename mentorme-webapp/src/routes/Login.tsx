@@ -2,7 +2,7 @@ import LoginView from "./route-views/LoginView";
 import {IdentityService} from "../services/app-services/IdentityService";
 import JwtContext from "../types/context/JwtContext";
 import {MouseEvent, useContext, useState} from "react";
-import {ILoginData} from "../types/dto/ILoginData";
+import {ILoginData} from "../types/dto/identity/ILoginData";
 import {useNavigate} from "react-router-dom";
 import {ValidateLoginInputs} from "../services/helpers/ValidateLoginInputs";
 
@@ -41,7 +41,7 @@ const Login = () => {
 
         let jwtData = await identityService.login(values);
 
-        if (jwtData == undefined) {
+        if (jwtData === undefined) {
             // TODO: get error info
             setValidationErrors(["no jwt"]);
             return;
@@ -49,7 +49,14 @@ const Login = () => {
 
         if (setJwtResponse){
             setJwtResponse(jwtData);
-            navigate("/");
+            console.log('Set JwtResponse:', jwtData);
+            localStorage.setItem('jwt', jwtData.jwt);
+            localStorage.setItem('refreshToken', jwtData.refreshToken);
+
+            const expiryTime = Date.now() + (jwtData.expiresIn * 1000);
+            localStorage.setItem('jwtExpiry', String(expiryTime));
+
+            navigate('/profile');
         }
     }
 

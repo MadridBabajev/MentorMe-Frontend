@@ -31,6 +31,8 @@ footer {
     text-decoration: none;
     color: #333;
     margin-bottom: 0.5rem;
+    padding: 3px 0;
+    box-sizing: border-box; 
     transition: color 0.3s;
 }
 

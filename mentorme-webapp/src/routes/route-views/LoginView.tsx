@@ -1,16 +1,16 @@
 
-import { LoginProps } from "../../types/props/LoginProps";
+import { ILoginProps } from "../../types/props/ILoginProps";
 import React from "react";
-import {RegisterInputProps} from "../../types/props/RegisterInputProps";
+import {IRegisterInputProps} from "../../types/props/IRegisterInputProps";
 
-const LoginView = (props: LoginProps) => {
+const LoginView = (props: ILoginProps) => {
 
     return (
         <form>
             <h2 className="mainH1" style={{marginTop: "200px"}}>Login</h2>
             <hr />
 
-            <ul style={{'display': props.validationErrors.length == 0 ? 'none' : ''}}>
+            <ul style={{'display': props.validationErrors.length === 0 ? 'none' : ''}}>
                 <li>{props.validationErrors.length > 0 ? props.validationErrors[0] : ''}</li>
             </ul>
 
@@ -23,7 +23,7 @@ const LoginView = (props: LoginProps) => {
     );
 }
 
-const LoginInputFields = (loginProps: LoginProps) => {
+const LoginInputFields = (loginProps: ILoginProps) => {
     return (
         <>
             <LoginInput id="Input_Email" name="email" type="email"
@@ -43,7 +43,7 @@ const LoginInputFields = (loginProps: LoginProps) => {
     )
 }
 
-const LoginInput = (props: RegisterInputProps) => {
+const LoginInput = (props: IRegisterInputProps) => {
     return (
         <div className="form-floating mb-3">
             <input

@@ -1,5 +1,5 @@
 
-interface PricingColumnProps {
+interface IPricingColumnProps {
     imageSrc: string;
     className: string;
     title: string;
@@ -7,4 +7,4 @@ interface PricingColumnProps {
     price: string;
 }
 
-export default PricingColumnProps
+export default IPricingColumnProps

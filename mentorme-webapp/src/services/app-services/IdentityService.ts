@@ -1,7 +1,8 @@
-import IJWTResponse from "../../types/dto/IJWTResponse"
-import { ILoginData } from "../../types/dto/ILoginData";
-import { IRegisterData } from "../../types/dto/IRegisterData";
+import IJWTResponse from "../../types/dto/identity/IJWTResponse"
+import { ILoginData } from "../../types/dto/identity/ILoginData";
+import { IRegisterData } from "../../types/dto/identity/IRegisterData";
 import { BaseService } from "../base-services/BaseService";
+import {ILogout} from "../../types/dto/identity/ILogout";
 
 export class IdentityService extends BaseService {
     constructor() {
@@ -38,28 +39,14 @@ export class IdentityService extends BaseService {
         }
     }
 
-    async logout(data: IJWTResponse): Promise<true | undefined> {
-        console.log(data);
-
+    async logout(data: ILogout): Promise<boolean> {
         try {
-            const response = await this.axios.post(
-                'logout',
-                data,
-                {
-                    headers: {
-                        'Authorization': 'Bearer ' + data.jwt
-                    }
-                }
-            );
-
+            const response = await this.axios.post('logout', data);
             console.log('logout response', response);
-            if (response.status === 200) {
-                return true;
-            }
-            return undefined;
+            return response.status === 200;
         } catch (e) {
             console.log('error: ', (e as Error).message);
-            return undefined;
+            return false;
         }
     }
 

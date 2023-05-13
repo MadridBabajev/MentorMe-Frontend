@@ -1,5 +1,5 @@
 
-export interface RegisterInputProps {
+export interface IRegisterInputProps {
     id: string;
     name: string;
     type: string;

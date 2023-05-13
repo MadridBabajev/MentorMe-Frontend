@@ -5,7 +5,7 @@ export interface IFooterLink {
     text: string;
 }
 
-export interface FooterColumnProps {
+export interface IFooterColumnProps {
     header: string;
     links: IFooterLink[];
 }

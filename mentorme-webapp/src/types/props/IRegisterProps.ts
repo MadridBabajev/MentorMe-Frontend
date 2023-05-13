@@ -1,7 +1,7 @@
-import {IRegisterData} from "../dto/IRegisterData";
+import {IRegisterData} from "../dto/identity/IRegisterData";
 import { MouseEvent } from "react"
 
-export interface RegisterProps {
+export interface IRegisterProps {
     values: IRegisterData;
     validationErrors: string[];
     handleChange: (target: EventTarget & HTMLInputElement) => void;

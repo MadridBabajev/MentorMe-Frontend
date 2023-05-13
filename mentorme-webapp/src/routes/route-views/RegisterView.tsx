@@ -1,16 +1,16 @@
 
-import { RegisterProps } from "../../types/props/RegisterProps";
-import {RegisterInputProps} from "../../types/props/RegisterInputProps";
+import { IRegisterProps } from "../../types/props/IRegisterProps";
+import {IRegisterInputProps} from "../../types/props/IRegisterInputProps";
 import React from "react";
 
-const RegisterView = (props: RegisterProps) => {
+const RegisterView = (props: IRegisterProps) => {
 
     return (
         <form>
             <h2 className="mainH1" style={{marginTop: "200px"}}>Become a user</h2>
             <hr />
 
-            <ul style={{'display': props.validationErrors.length == 0 ? 'none' : ''}}>
+            <ul style={{'display': props.validationErrors.length === 0 ? 'none' : ''}}>
                 <li>{props.validationErrors.length > 0 ? props.validationErrors[0] : ''}</li>
             </ul>
 
@@ -23,7 +23,7 @@ const RegisterView = (props: RegisterProps) => {
     );
 }
 
-const RegisterInputFields = (registerProps: RegisterProps) => {
+const RegisterInputFields = (registerProps: IRegisterProps) => {
     return(
         <>
             <RegisterInput id="Input_Email" name="email" type="email"
@@ -58,7 +58,7 @@ const RegisterInputFields = (registerProps: RegisterProps) => {
     )
 }
 
-const RegisterInput = (props: RegisterInputProps) => {
+const RegisterInput = (props: IRegisterInputProps) => {
     return (
         <div className="form-floating mb-3">
             <input

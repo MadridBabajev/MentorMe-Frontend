@@ -1,0 +1,20 @@
+.subject-card {
+    width: 18rem;
+    margin: 1rem;
+}
+
+.subject-card img {
+    height: 200px; /* adjust this value to your liking */
+    object-fit: cover;
+}
+
+.subject-card .card-title {
+    text-align: center;
+    font-weight: bold;
+    color: #555; /* adjust this value to your liking */
+}
+
+.subject-card a {
+    text-decoration: none;
+    color: inherit;
+}

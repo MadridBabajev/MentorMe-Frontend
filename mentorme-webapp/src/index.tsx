@@ -17,6 +17,10 @@ import Root from "./routes/Root";
 import Home from "./routes/Home";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
+import Tutors from "./routes/Tutors";
+import SubjectsList from "./routes/SubjectsList";
+import SubjectDetails from "./routes/SubjectDetails";
+import Profile from "./routes/Profile";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +39,22 @@ const router = createBrowserRouter([
             {
                 path: "register/",
                 element: <Register />,
+            },
+            {
+                path: "tutors/",
+                element: <Tutors />,
+            },
+            {
+                path: "subjects/",
+                element: <SubjectsList />,
+            },
+            {
+                path: "/subjects/:id",
+                element: <SubjectDetails />,
+            },
+            {
+                path: "/profile",
+                element: <Profile />,
             }
         ]
     }

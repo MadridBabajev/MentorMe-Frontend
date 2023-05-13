@@ -1,5 +1,5 @@
 
-import { IBaseEntity } from "../../types/domain/IBaseEntity";
+import { IBaseEntity } from "../../types/dto/domain/base/IBaseEntity";
 import { BaseService } from "./BaseService";
 
 export abstract class BaseEntityService<TEntity extends IBaseEntity> extends BaseService {
@@ -7,7 +7,7 @@ export abstract class BaseEntityService<TEntity extends IBaseEntity> extends Bas
         super(baseUrl);
     }
 
-    async getAll(jwt: string): Promise<TEntity[] | undefined> {
+    async getAllPrivate(jwt: string): Promise<TEntity[] | undefined> {
         try {
             const response = await this.axios.get<TEntity[]>('',
                 {
@@ -24,6 +24,30 @@ export abstract class BaseEntityService<TEntity extends IBaseEntity> extends Bas
             return undefined;
         } catch (e) {
             // console.log('error: ', (e as Error).message);
+            return undefined;
+        }
+    }
+
+    async getAll(path: string): Promise<TEntity[] | undefined> {
+        try {
+            const response = await this.axios.get<TEntity[]>(path);
+            if (response.status === 200) {
+                return response.data as TEntity[];
+            }
+            return undefined;
+        } catch (e) {
+            return undefined;
+        }
+    }
+
+    async findOneById(path: string): Promise<TEntity | undefined> {
+        try {
+            const response = await this.axios.get<TEntity>(path);
+            if (response.status === 200) {
+                return response.data as TEntity;
+            }
+            return undefined;
+        } catch (e) {
             return undefined;
         }
     }
