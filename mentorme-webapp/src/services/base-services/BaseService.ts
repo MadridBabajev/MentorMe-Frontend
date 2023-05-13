@@ -2,7 +2,7 @@ import Axios, { AxiosInstance } from 'axios';
 import IJWTResponse from "../../types/dto/identity/IJWTResponse";
 import EventEmitter from "events";
 
-// TODO: Make the jwt auto-refreshable !!!!! The problem is that it fails to decode the response received from the endpoint
+// TODO: Make the jwt auto-refreshable !!! The problem is that it fails to decode the response received from the endpoint
 export abstract class BaseService {
     private static hostBaseURL = "http://localhost:5289/api/";
 
