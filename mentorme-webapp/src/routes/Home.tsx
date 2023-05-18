@@ -102,7 +102,7 @@ const HomeLandingButtons = () => {
     return (
         <>
             <div className="ui containerFrame findMeTutorButtons">
-                <Link to="/tutors" className="button find-a-tutor-button">Find A Tutor</Link>
+                <Link to="/tutors-search" className="button find-a-tutor-button">Find A Tutor</Link>
                 <Link to="/register" className="inverted-button register-button" >Register</Link>
             </div>
         </>

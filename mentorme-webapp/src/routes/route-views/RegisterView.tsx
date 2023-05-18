@@ -2,6 +2,7 @@
 import { IRegisterProps } from "../../types/props/IRegisterProps";
 import {IRegisterInputProps} from "../../types/props/IRegisterInputProps";
 import React from "react";
+import {ECountries} from "../../types/dto/domain/ECountries";
 
 const RegisterView = (props: IRegisterProps) => {
 
@@ -10,8 +11,10 @@ const RegisterView = (props: IRegisterProps) => {
             <h2 className="mainH1" style={{marginTop: "200px"}}>Become a user</h2>
             <hr />
 
-            <ul style={{'display': props.validationErrors.length === 0 ? 'none' : ''}}>
-                <li>{props.validationErrors.length > 0 ? props.validationErrors[0] : ''}</li>
+            <ul style={{'display': props.validationErrors.length === 0 ? 'none' : '', 'paddingLeft': '0'}}>
+                <li className="error-message">
+                    * {props.validationErrors.length > 0 ? props.validationErrors[0] : ''}
+                </li>
             </ul>
 
             <RegisterInputFields {...props} />
@@ -50,6 +53,11 @@ const RegisterInputFields = (registerProps: IRegisterProps) => {
                            autoComplete="lastname" placeholder="LastName"
                            value={registerProps.values.lastName} label="Last name"
                            handleChange={(e) => registerProps.handleChange(e)} />
+            <RegisterSelect
+                name="country"
+                label="Country"
+                value={registerProps.values.country}
+                handleChange={(e) => registerProps.handleChangeSelect(e)} />
             <RegisterCheckbox
                 name="isTutor" label="Register as a tutor"
                 checked={registerProps.values.isTutor}
@@ -97,6 +105,31 @@ const RegisterCheckbox = (props: {
             <label className="form-check-label" htmlFor={props.name}>
                 {props.label}
             </label>
+        </div>
+    );
+};
+
+const RegisterSelect = (props: {
+    name: string;
+    label: string;
+    value: ECountries;
+    handleChange: (target: EventTarget & HTMLSelectElement) => void;
+}) => {
+    const enumKeys = Object.keys(ECountries).filter((type) => isNaN(type as any) && type !== 'values');
+
+    return (
+        <div className="form-floating mb-3">
+            <select
+                className="form-select"
+                id={props.name}
+                name={props.name}
+                value={props.value}
+                onChange={(e) => props.handleChange(e.target)}>
+                {enumKeys.map((country, i) =>
+                    <option value={country} key={i}>{country}</option>
+                )}
+            </select>
+            <label htmlFor={props.name}>{props.label}</label>
         </div>
     );
 };

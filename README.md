@@ -36,6 +36,8 @@ npm install axios
 ## Install JWT decoder 
 ~~~bash
 npm install jwt-decode
+# Axios types
+npm install @types/axios --save-dev
 ~~~
 
 # Configure and run the app

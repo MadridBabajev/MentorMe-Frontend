@@ -1,0 +1,111 @@
+.tutors-search-container {
+    margin: 4rem auto; /* Increase space around the container */
+    max-width: 900px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+
+/* Input fields and filter button */
+.filter-container input[type="text"],
+.filter-container input[type="number"] {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.filter-container input[type="text"]:focus,
+.filter-container input[type="number"]:focus {
+    outline: none;
+    border-color: #28a745;
+}
+
+.filter-container button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 2rem;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    float: right; /* Aligns the button to the right */
+}
+
+.filter-container button:hover,
+.filter-container button:active {
+    background-color: #218838;
+}
+
+.tutors-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 60px;
+    /*gap: 1rem; !* Increase gap between cards *!*/
+}
+
+.tutor-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #85c1e9;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.tutor-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+.w-25 {
+    flex: 0 0 25%;
+    max-width: 15%;
+    padding-right: 1rem; /* Add space between image and details */
+    border-right: 1px solid #ccc; /* Add border between image and details */
+}
+
+.tutor-details {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding-left: 1rem; /* Add space between image and details */
+    font-family: 'Comfortaa', 'Quicksand', sans-serif;
+}
+
+.tutor-stats {
+    flex-basis: 0;
+    flex-grow: 1;
+    padding-left: 1rem;
+    /*text-align: right;*/
+}
+
+.tutor-stats div {
+    font-size: 18px;
+    margin-bottom: 1rem;
+}
+
+.tutor-image {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+
+.tutor-details > div:first-child {
+    font-size: 18px; /* Make first and last name bigger */
+    font-weight: bold;
+}

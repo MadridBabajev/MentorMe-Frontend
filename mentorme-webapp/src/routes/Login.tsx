@@ -1,70 +1,33 @@
 import LoginView from "./route-views/LoginView";
-import {IdentityService} from "../services/app-services/IdentityService";
-import JwtContext from "../types/context/JwtContext";
-import {MouseEvent, useContext, useState} from "react";
 import {ILoginData} from "../types/dto/identity/ILoginData";
-import {useNavigate} from "react-router-dom";
-import {ValidateLoginInputs} from "../services/helpers/ValidateLoginInputs";
+import {UseIdentityForm} from "../services/helpers/custom-hooks/UseIdentityForm";
+import {UseHandleJwtResponse} from "../services/helpers/custom-hooks/UseHandleJwtResponse";
+import {ValidateAuthenticationInputs} from "../services/helpers/ValidateAuthenticationInputs";
 
 const Login = () => {
-    const navigate = useNavigate();
-
-    const [values, setInput] = useState({
+    const initialValues: ILoginData = {
         email: "",
         password: "",
         isTutor: false
-    } as ILoginData);
+    };
 
-    const [validationErrors, setValidationErrors] = useState([] as string[]);
+    const {
+        values,
+        jwtData,
+        handleChange,
+        onSubmit,
+        validationErrors
+    } = UseIdentityForm(initialValues, ValidateAuthenticationInputs, "login");
 
-    const handleChange = (target: EventTarget & HTMLInputElement) => {
-        // debugger;
-        // console.log(target.name, target.value, target.type)
-        const value = target.type === "checkbox" ?
-            target.checked : target.value;
-        setInput({ ...values, [target.name]: value });
-    }
-
-    const {jwtResponse, setJwtResponse} = useContext(JwtContext);
-
-    const identityService = new IdentityService();
-
-    const onSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-
-        if (ValidateLoginInputs(values)) {
-            setValidationErrors(["Bad input values!"]);
-            return;
-        }
-        // remove errors
-        setValidationErrors([]);
-
-        let jwtData = await identityService.login(values);
-
-        if (jwtData === undefined) {
-            // TODO: get error info
-            setValidationErrors(["no jwt"]);
-            return;
-        }
-
-        if (setJwtResponse){
-            setJwtResponse(jwtData);
-            console.log('Set JwtResponse:', jwtData);
-            localStorage.setItem('jwt', jwtData.jwt);
-            localStorage.setItem('refreshToken', jwtData.refreshToken);
-
-            const expiryTime = Date.now() + (jwtData.expiresIn * 1000);
-            localStorage.setItem('jwtExpiry', String(expiryTime));
-
-            navigate('/profile');
-        }
-    }
+    UseHandleJwtResponse(jwtData);
 
     return (
-        <LoginView values={values}
-                   handleChange={handleChange}
-                   onSubmit={onSubmit}
-                   validationErrors={validationErrors} />
+        <LoginView
+            values={values}
+            handleChange={handleChange}
+            onSubmit={onSubmit}
+            validationErrors={validationErrors}
+        />
     );
 }
 

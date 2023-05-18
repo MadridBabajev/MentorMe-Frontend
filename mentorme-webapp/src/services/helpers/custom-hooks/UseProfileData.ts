@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import {BaseEntityService} from "../../base-services/BaseEntityService";
 import {IStudentProfileData} from "../../../types/dto/domain/IStudentProfileData";
 import {ITutorProfileData} from "../../../types/dto/domain/ITutorProfileData";
+import {BaseProfileService} from "../../base-services/BaseProfileService";
 
-export const useProfileData = (service: BaseEntityService<IStudentProfileData | ITutorProfileData>, profileDetailsPath: string) => {
+export const useProfileData = (service: BaseProfileService, profileDetailsPath: string, visitedUserId: string | null) => {
     const [profileData, setProfileData] = useState<IStudentProfileData | ITutorProfileData | undefined>();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        service.findOneById(profileDetailsPath)
+        service.getUserProfile(profileDetailsPath, visitedUserId)
             .then(response => {
                 console.log(response);
                 // await timeout(3000);
@@ -20,11 +20,7 @@ export const useProfileData = (service: BaseEntityService<IStudentProfileData | 
             .finally(() => {
                 setLoading(false);
             });
-    }, [service, profileDetailsPath]);
+    }, [service, profileDetailsPath, visitedUserId]);
 
     return { profileData, loading };
 };
-
-// function timeout(delay: number) {
-//     return new Promise( res => setTimeout(res, delay) );
-// }

@@ -17,10 +17,21 @@ import Root from "./routes/Root";
 import Home from "./routes/Home";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
-import Tutors from "./routes/Tutors";
+import TutorsSearch from "./routes/TutorsSearch";
 import SubjectsList from "./routes/SubjectsList";
 import SubjectDetails from "./routes/SubjectDetails";
-import Profile from "./routes/Profile";
+import Profile from "./routes/authorized/Profile";
+import {PaymentMethods} from "./routes/authorized/PaymentMethods";
+import {BankingDetails} from "./routes/authorized/BankingDetails";
+import {Inbox} from "./routes/authorized/Inbox";
+
+function MyLessons() {
+    return null;
+}
+
+function MyAvailability() {
+    return null;
+}
 
 const router = createBrowserRouter([
     {
@@ -33,19 +44,19 @@ const router = createBrowserRouter([
                 element: <Home />,
             },
             {
-                path: "login/",
+                path: "/login",
                 element: <Login />,
             },
             {
-                path: "register/",
+                path: "/register",
                 element: <Register />,
             },
             {
-                path: "tutors/",
-                element: <Tutors />,
+                path: "/tutors-search",
+                element: <TutorsSearch />,
             },
             {
-                path: "subjects/",
+                path: "/subjects",
                 element: <SubjectsList />,
             },
             {
@@ -55,6 +66,28 @@ const router = createBrowserRouter([
             {
                 path: "/profile",
                 element: <Profile />,
+                children: [
+                    {
+                        path: "my-lessons",
+                        element: <MyLessons />,
+                    },
+                    {
+                        path: "my-availability",
+                        element: <MyAvailability />,
+                    },
+                    {
+                        path: "payment-methods",
+                        element: <PaymentMethods />,
+                    },
+                    {
+                        path: "banking-details",
+                        element: <BankingDetails />,
+                    },
+                    {
+                        path: "inbox",
+                        element: <Inbox />,
+                    }
+                ]
             }
         ]
     }

@@ -11,7 +11,7 @@ import {JwtRefreshEvent} from "../services/base-services/BaseService";
 const Root = () => {
 
     const [jwtResponse, setJwtResponse] = useState(null as IJWTResponse | null);
-    console.log('Set JwtResponse:', jwtResponse);
+    console.log('Set JwtResponse from Root:', jwtResponse);
 
     useEffect(() => {
         const listener = (newJwtResponse: IJWTResponse) => {

@@ -13,4 +13,5 @@ export interface IBaseUserData extends IBaseEntity {
     profilePicture: Uint8Array | null,
     subjects: ISubjectListElement[],
     isPublic: boolean
+    numberOfClasses: number
 }

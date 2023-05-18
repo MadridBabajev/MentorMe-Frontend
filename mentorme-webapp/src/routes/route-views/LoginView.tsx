@@ -10,8 +10,10 @@ const LoginView = (props: ILoginProps) => {
             <h2 className="mainH1" style={{marginTop: "200px"}}>Login</h2>
             <hr />
 
-            <ul style={{'display': props.validationErrors.length === 0 ? 'none' : ''}}>
-                <li>{props.validationErrors.length > 0 ? props.validationErrors[0] : ''}</li>
+            <ul style={{'display': props.validationErrors.length === 0 ? 'none' : '', 'paddingLeft': '0'}}>
+                <li className="error-message">
+                    * {props.validationErrors.length > 0 ? props.validationErrors[0] : ''}
+                </li>
             </ul>
 
             <LoginInputFields {...props} />

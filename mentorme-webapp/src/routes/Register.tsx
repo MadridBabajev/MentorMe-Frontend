@@ -1,69 +1,42 @@
 
-import { MouseEvent, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { IRegisterData } from "../types/dto/identity/IRegisterData";
-import { IdentityService } from "../services/app-services/IdentityService";
-import JwtContext from "../types/context/JwtContext";
+import { ValidateAuthenticationInputs } from "../services/helpers/ValidateAuthenticationInputs";
+import {IRegisterData} from "../types/dto/identity/IRegisterData";
 import RegisterView from "./route-views/RegisterView";
-import { ValidateRegisterInputs } from "../services/helpers/ValidateRegisterInputs";
+import {ECountries} from "../types/dto/domain/ECountries";
+import {UseIdentityForm} from "../services/helpers/custom-hooks/UseIdentityForm";
+import {UseHandleJwtResponse} from "../services/helpers/custom-hooks/UseHandleJwtResponse";
 
 const Register = () => {
-    const navigate = useNavigate();
-
-    const [values, setInput] = useState({
+    const initialValues: IRegisterData = {
         password: "",
         confirmPassword: "",
         email: "",
         mobilePhone: "",
         firstName: "",
         lastName: "",
-        isTutor: false
-    } as IRegisterData);
+        isTutor: false,
+        country: ECountries.Estonia
+    };
 
-    const [validationErrors, setValidationErrors] = useState([] as string[]);
+    const {
+        values,
+        jwtData,
+        handleChange,
+        handleChangeSelect,
+        onSubmit,
+        validationErrors
+    } = UseIdentityForm(initialValues, ValidateAuthenticationInputs, "register");
 
-    const handleChange = (target: EventTarget & HTMLInputElement) => {
-        // debugger;
-        // console.log(target.name, target.value, target.type)
-        const value = target.type === "checkbox" ?
-            target.checked : target.value;
-        setInput({ ...values, [target.name]: value });
-    }
-
-    const { jwtResponse, setJwtResponse } = useContext(JwtContext);
-
-    const identityService = new IdentityService();
-
-    const onSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
-        // console.log('onSubmit', event);
-        event.preventDefault();
-
-        if (ValidateRegisterInputs(values)) {
-            setValidationErrors(["Bad input values!"]);
-            return;
-        }
-        // remove errors
-        setValidationErrors([]);
-
-        let jwtData = await identityService.register(values);
-
-        if (jwtData == undefined) {
-            // TODO: get error info
-            setValidationErrors(["no jwt"]);
-            return;
-        }
-
-        if (setJwtResponse){
-            setJwtResponse(jwtData);
-            navigate("/");
-        }
-    }
+    UseHandleJwtResponse(jwtData);
 
     return (
-        <RegisterView values={values}
-                      handleChange={handleChange}
-                      onSubmit={onSubmit}
-                      validationErrors={validationErrors} />
+        <RegisterView
+            values={values as IRegisterData}
+            handleChange={handleChange}
+            handleChangeSelect={handleChangeSelect}
+            onSubmit={onSubmit}
+            validationErrors={validationErrors}
+        />
     );
 }
 

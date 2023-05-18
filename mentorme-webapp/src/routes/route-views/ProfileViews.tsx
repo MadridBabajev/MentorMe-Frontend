@@ -17,8 +17,8 @@ export const ProfileSidebar = ({ profileData, isPublic }: IProfileProps) => (
             className="profile-picture"
             src={profileData?.profilePicture ? `data:image/png;base64,${profileData.profilePicture}` : defaultImage}
         />
-        <div className="name-rating d-flex justify-content-center align-items-center">
-            <div className="simple-text">{profileData?.firstName} {profileData?.lastName}</div>
+        <div className="greyH2 name-rating d-flex justify-content-center align-items-center">
+            <div>{profileData?.firstName} {profileData?.lastName}</div>
             <div className="rating m-lg-2">
                 <span className="star-icon">⭐</span>
                 <span>{profileData?.averageRating}</span>
@@ -36,13 +36,17 @@ export const ProfileSidebar = ({ profileData, isPublic }: IProfileProps) => (
                 <div className="balance">{profileData.hourlyRate.toFixed(2)}</div>
             </div>
         )}
+        <div className="mt-5 simple-text d-flex justify-content-center flex-column">
+            <h2 className="greyH2">Number of Classes</h2>
+            <div className="balance">{profileData!.numberOfClasses}</div>
+        </div>
     </div>
 );
 
-export const ProfileMainContent = ({ profileData, isPublic, id }: IProfileProps) => (
+export const ProfileMainContent = ({ profileData, isPublic}: IProfileProps) => (
     <div className="main-content">
         {!isPublic && (
-            <Link to={`/profile/${id}`} className="edit-button">
+            <Link to={`/profile`} className="edit-button">
                 <PencilIcon />
             </Link>
         )}

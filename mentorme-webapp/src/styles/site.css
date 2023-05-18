@@ -76,7 +76,7 @@ body {
 
 .simple-text {
     font-size: 18px;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Quicksand Light', 'Arial', sans-serif;
 }
 
 .error-page-content {
@@ -86,9 +86,16 @@ body {
 }
 
 .error-message {
+    color:  #a93232;
     font-weight: bold;
+    border-bottom: 3px solid  #a93232;
+    list-style-type: none;
+    padding: 5px;
+    margin: 10px 0;
+    font-size: 20px;
+    font-family: 'Quicksand Light', 'Arial', sans-serif;
+    display: inline-block;
 }
-
 /* Loader */
 .loader {
     display: inline-block;

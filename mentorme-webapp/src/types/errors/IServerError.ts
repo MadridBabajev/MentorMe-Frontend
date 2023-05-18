@@ -1,5 +1,4 @@
-
-export interface IError {
+export interface IServerError {
     Status?: number,
     Error?: string,
 }

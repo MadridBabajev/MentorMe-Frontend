@@ -26,8 +26,7 @@ const Header = () => {
                 console.error("Failed to decode JWT:", error);
                 setIsLoggedIn(false);
                 setUserType(null);
-                localStorage.removeItem('jwt');
-                localStorage.removeItem('refreshToken');
+                localStorage.clear()
                 navigate("/login");
                 return;
             }
@@ -54,7 +53,7 @@ const Header = () => {
             <HeaderLinks isLoggedIn={isLoggedIn} userType={userType} />
         </header>
     );
-}
+};
 
 const HeaderLogo = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
     return(
@@ -65,7 +64,7 @@ const HeaderLogo = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
             />
         </Link>
     )
-}
+};
 
 const HeaderLinks = ({ isLoggedIn, userType}: { isLoggedIn: boolean, userType: string | null}) => {
     const identityService = new IdentityService();
@@ -95,20 +94,20 @@ const HeaderLinks = ({ isLoggedIn, userType}: { isLoggedIn: boolean, userType: s
     }
 
     return <HeaderLinksViews isLoggedIn={isLoggedIn} userType={userType} logout={logout} />
-}
+};
 
 const HeaderLinksViews = ({isLoggedIn, userType, logout}: { isLoggedIn: boolean, userType: string | null, logout: () => void }) => {
     if (isLoggedIn) {
         return (
             <div className="right-nav-items">
                 <Link to="/subjects" className="right-nav-item">Subjects</Link>
-                {userType === 'Student' && <Link to="/tutors" className="right-nav-item">Tutors</Link>}
-                <Link to="/my-lessons" className="right-nav-item">My lessons</Link>
-                {userType === 'Tutor' && <Link to="/my-availability" className="right-nav-item">My availability</Link>}
-                {userType === 'Student' && <Link to="/payment-methods" className="right-nav-item">Payment methods</Link>}
-                {userType === 'Tutor' && <Link to="/banking-details" className="right-nav-item">Banking details</Link>}
+                {userType === 'Student' && <Link to="/tutors-search" className="right-nav-item">Tutors</Link>}
+                <Link to="/profile/my-lessons" className="right-nav-item">My lessons</Link>
+                {userType === 'Tutor' && <Link to="/profile/my-availability" className="right-nav-item">My availability</Link>}
+                {userType === 'Student' && <Link to="/profile/payment-methods" className="right-nav-item">Payment methods</Link>}
+                {userType === 'Tutor' && <Link to="/profile/banking-details" className="right-nav-item">Banking details</Link>}
                 <Link to="/profile" className="right-nav-item">My Profile</Link>
-                <Link to="/inbox" className="right-nav-item email-icon-container">
+                <Link to="/profile/inbox" className="right-nav-item email-icon-container">
                     <img src={inboxSvg} className="email-icon" alt="inbox"/>
                 </Link>
                 <button onClick={logout} className="right-nav-item header-login-logout-btn">Logout</button>
@@ -118,12 +117,12 @@ const HeaderLinksViews = ({isLoggedIn, userType, logout}: { isLoggedIn: boolean,
 
     return (
         <div className="right-nav-items">
-            <Link to="/tutors" className="right-nav-item">Tutors</Link>
+            <Link to="/tutors-search" className="right-nav-item">Tutors</Link>
             <Link to="/subjects" className="right-nav-item">Subjects</Link>
             <Link to="/register" className="right-nav-item">Register</Link>
             <Link to="/login" className="right-nav-item header-login-logout-btn">Log in</Link>
         </div>
     )
-}
+};
 
 export default Header;
