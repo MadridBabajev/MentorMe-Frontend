@@ -1,6 +1,7 @@
 import Axios, { AxiosInstance } from 'axios';
 import IJWTResponse from "../../types/dto/identity/IJWTResponse";
 import EventEmitter from "events";
+import IRefreshTokenModel from "../../types/dto/identity/IRefreshTokenModel";
 
 // TODO: Make the jwt auto-refreshable !!! The problem is that it fails to decode the response received from the endpoint
 export abstract class BaseService {
@@ -34,7 +35,7 @@ export abstract class BaseService {
                 console.log('Refreshing token...');
                 const response = await this.axiosForRefresh.post(
                     BaseService.hostBaseURL + "v1/identity/account/RefreshToken",
-                    { jwt: token, refreshToken: refreshToken }) as IJWTResponse | null;  // include the refresh token in the request body
+                    { jwt: token, refreshToken: refreshToken } as IRefreshTokenModel) as IJWTResponse;  // include the refresh token in the request body
                 console.log('Refresh token response:', response);
                 // Update local storage with new token and expiry time
                 localStorage.setItem('jwt', response!.jwt);
