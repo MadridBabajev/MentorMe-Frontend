@@ -1,17 +1,17 @@
 import React from "react";
 import { Card, Image } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import {ISubjectListElement} from "../../types/dto/domain/ISubjectListElement";
+import {ISubjectListElement} from "../../types/dto/domain/subjects/ISubjectListElement";
 import "../../styles/pages/profile.css";
 import defaultImage from "../../assets/unknown-profile.png";
 import {ReactComponent as PencilIcon} from '../../assets/pencil-icon.svg';
-import {IProfileProps} from "../../types/props/IProfileProps";
-import {EDayOfTheWeek} from "../../types/dto/domain/EDayOfTheWeek";
+import {IProfileViewProps} from "../../types/props/profiles/IProfileViewProps";
+import {EDayOfTheWeek} from "../../types/dto/domain/enums/EDayOfTheWeek";
 
 const getProfileBalanceColor = (balance: number | undefined): string =>
         balance && balance >= 0 ? 'green' : 'red';
 
-export const ProfileSidebar = ({ profileData, isPublic }: IProfileProps) => (
+export const ProfileSidebar = ({ profileData }: IProfileViewProps) => (
     <div className="sidebar">
         <Image
             className="profile-picture"
@@ -24,7 +24,7 @@ export const ProfileSidebar = ({ profileData, isPublic }: IProfileProps) => (
                 <span>{profileData?.averageRating}</span>
             </div>
         </div>
-        {!isPublic && (
+        {!profileData?.isPublic && (
             <div className="mt-5 simple-text d-flex justify-content-center flex-column">
                 <h2 className="greyH2">Current balance</h2>
                 <div className="balance" style={{color: getProfileBalanceColor(profileData?.balance)}}>{(profileData?.balance ?? 0).toFixed(2)}</div>
@@ -43,11 +43,17 @@ export const ProfileSidebar = ({ profileData, isPublic }: IProfileProps) => (
     </div>
 );
 
-export const ProfileMainContent = ({ profileData, isPublic}: IProfileProps) => (
+export const ProfileMainContent = ({ profileData, userType }: IProfileViewProps) => (
     <div className="main-content">
-        {!isPublic && (
+
+        {profileData?.isPublic && (userType === "Student") && (
+            <Link to={`/reserve-lesson`} state={{ tutorId: profileData?.id }} className="reserve-lesson-button">
+                Reserve Lesson
+            </Link>
+        )}
+        {!profileData?.isPublic && (
             <Link to={`/profile`} className="edit-button">
-                <PencilIcon />
+                <PencilIcon style={{height: "60px"}} />
             </Link>
         )}
         <h2 className="greyH2">Title</h2>
@@ -57,7 +63,7 @@ export const ProfileMainContent = ({ profileData, isPublic}: IProfileProps) => (
         <h2 className="mt-2 greyH2">Details</h2>
         <div className="mt-4 mb-4 d-flex justify-content-around">
             <div className="simple-text">Phone: {profileData?.mobilePhone}</div>
-            {!isPublic && (
+            {!profileData?.isPublic && (
                 <div className="simple-text">Notifications: {profileData?.notificationsEnabled ? '✅' : '❌'}</div>
             )}
         </div>

@@ -1,5 +1,5 @@
 import {IBaseEntity} from "./IBaseEntity";
-import {ISubjectListElement} from "../ISubjectListElement";
+import {ISubjectListElement} from "../subjects/ISubjectListElement";
 
 export interface IBaseUserData extends IBaseEntity {
     notificationsEnabled: boolean,

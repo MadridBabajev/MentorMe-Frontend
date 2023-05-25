@@ -23,8 +23,6 @@ export const CheckAndDecodeJWT = (context: JwtContextType) => {
     }
 
     if (id && decodedJwtData) {
-        console.log("Id CheckAndDecodeJWT: " + id);
-        console.log("JwtData decoded CheckAndDecodeJWT: " + JSON.stringify(decodedJwtData));
         return { id, decodedJwtData };
     }
 

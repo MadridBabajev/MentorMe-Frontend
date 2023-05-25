@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import {IStudentProfileData} from "../../../types/dto/domain/IStudentProfileData";
-import {ITutorProfileData} from "../../../types/dto/domain/ITutorProfileData";
+import {IStudentProfileData} from "../../../types/dto/domain/profiles/IStudentProfileData";
+import {ITutorProfileData} from "../../../types/dto/domain/profiles/ITutorProfileData";
 import {BaseProfileService} from "../../base-services/BaseProfileService";
 
 export const useProfileData = (service: BaseProfileService, profileDetailsPath: string, visitedUserId: string | null) => {
@@ -10,7 +10,6 @@ export const useProfileData = (service: BaseProfileService, profileDetailsPath: 
     useEffect(() => {
         service.getUserProfile(profileDetailsPath, visitedUserId)
             .then(response => {
-                console.log(response);
                 // await timeout(3000);
                 setProfileData(response as IStudentProfileData | ITutorProfileData | undefined);
             })

@@ -55,6 +55,7 @@ const Header = () => {
     );
 };
 
+
 const HeaderLogo = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
     return(
         <Link to={isLoggedIn ? "/profile" : "/"} className="mentormelogolamp">
@@ -72,7 +73,7 @@ const HeaderLinks = ({ isLoggedIn, userType}: { isLoggedIn: boolean, userType: s
     const { jwtResponse, setJwtResponse } = useContext(JwtContext);
 
     const logout = async () => {
-        console.log(jwtResponse)
+
         if (jwtResponse) {
             try {
                 const success = await identityService.logout({ refreshToken: jwtResponse.refreshToken });
@@ -102,12 +103,12 @@ const HeaderLinksViews = ({isLoggedIn, userType, logout}: { isLoggedIn: boolean,
             <div className="right-nav-items">
                 <Link to="/subjects" className="right-nav-item">Subjects</Link>
                 {userType === 'Student' && <Link to="/tutors-search" className="right-nav-item">Tutors</Link>}
-                <Link to="/profile/my-lessons" className="right-nav-item">My lessons</Link>
-                {userType === 'Tutor' && <Link to="/profile/my-availability" className="right-nav-item">My availability</Link>}
-                {userType === 'Student' && <Link to="/profile/payment-methods" className="right-nav-item">Payment methods</Link>}
-                {userType === 'Tutor' && <Link to="/profile/banking-details" className="right-nav-item">Banking details</Link>}
+                <Link to="/my-lessons" className="right-nav-item">My lessons</Link>
+                {userType === 'Tutor' && <Link to="/my-availability" className="right-nav-item">My availability</Link>}
+                {userType === 'Student' && <Link to="/payment-methods" className="right-nav-item">Payment methods</Link>}
+                {userType === 'Tutor' && <Link to="/banking-details" className="right-nav-item">Banking details</Link>}
                 <Link to="/profile" className="right-nav-item">My Profile</Link>
-                <Link to="/profile/inbox" className="right-nav-item email-icon-container">
+                <Link to="/inbox" className="right-nav-item email-icon-container">
                     <img src={inboxSvg} className="email-icon" alt="inbox"/>
                 </Link>
                 <button onClick={logout} className="right-nav-item header-login-logout-btn">Logout</button>

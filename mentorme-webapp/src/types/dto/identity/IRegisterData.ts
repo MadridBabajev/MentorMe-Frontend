@@ -1,4 +1,4 @@
-import {ECountries} from "../domain/ECountries";
+import {ECountries} from "../domain/enums/ECountries";
 
 export interface IRegisterData {
     password: string;

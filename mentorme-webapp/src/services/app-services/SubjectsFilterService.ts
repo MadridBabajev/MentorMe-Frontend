@@ -1,5 +1,5 @@
 import {BaseEntityService} from "../base-services/BaseEntityService";
-import {ISubjectFilterElement} from "../../types/dto/domain/ISubjectFilterElement";
+import {ISubjectFilterElement} from "../../types/dto/domain/subjects/ISubjectFilterElement";
 
 export class SubjectsFilterService extends BaseEntityService<ISubjectFilterElement> {
     constructor() {

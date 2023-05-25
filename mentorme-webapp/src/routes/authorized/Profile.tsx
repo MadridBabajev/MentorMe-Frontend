@@ -48,13 +48,13 @@ const Profile = () => {
     // TODO: Make student profiles visible as guest too
     if(visitedUserId) {
         // If visitedUserId is present, show TutorProfile as a guest
-        return <TutorProfile id={id!} visitedUserId={visitedUserId} />
+        return <TutorProfile id={id!} userType={decodedJwtData?.UserType} visitedUserId={visitedUserId} />
     } else if(decodedJwtData?.UserType === 'Student') {
         // If no visitedUserId and user is a student, show StudentProfile
-        return <StudentProfile id={id!} />
+        return <StudentProfile userType={decodedJwtData?.UserType} id={id!} />
     } else if(decodedJwtData?.UserType === 'Tutor') {
         // If no visitedUserId and user is a tutor, show TutorProfile
-        return <TutorProfile id={id!} />
+        return <TutorProfile userType={decodedJwtData?.UserType} id={id!} />
     }
 
 

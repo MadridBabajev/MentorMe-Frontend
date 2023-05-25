@@ -1,6 +1,6 @@
 import {BaseEntityService} from "./BaseEntityService";
-import {IStudentProfileData} from "../../types/dto/domain/IStudentProfileData";
-import {ITutorProfileData} from "../../types/dto/domain/ITutorProfileData";
+import {IStudentProfileData} from "../../types/dto/domain/profiles/IStudentProfileData";
+import {ITutorProfileData} from "../../types/dto/domain/profiles/ITutorProfileData";
 
 export abstract class BaseProfileService extends BaseEntityService<IStudentProfileData | ITutorProfileData> {
     constructor() {

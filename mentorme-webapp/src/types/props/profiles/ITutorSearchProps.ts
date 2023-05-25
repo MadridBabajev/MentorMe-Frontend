@@ -1,6 +1,6 @@
-import {ITutorSearch} from "../dto/domain/ITutorSearch";
+import {ITutorSearch} from "../../dto/domain/profiles/ITutorSearch";
 import {ITutorFilterProps} from "./ITutorFilterProps";
-import {ISubjectFilterElement} from "../dto/domain/ISubjectFilterElement";
+import {ISubjectFilterElement} from "../../dto/domain/subjects/ISubjectFilterElement";
 import React, {ChangeEvent} from "react";
 
 export interface ITutorSearchProps {

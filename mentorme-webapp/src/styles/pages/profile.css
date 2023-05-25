@@ -51,6 +51,7 @@
 }
 
 .edit-button {
+    box-sizing: border-box;
     position: absolute;
     top: 0;
     right: 0;
@@ -64,6 +65,36 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+    background-color: #1e7e34;
+}
+
+.reserve-lesson-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #28a745;
+    border-radius: 30px;
+    color: white;
+    padding: 15px;
+    text-decoration: none;
+    width: 150px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.reserve-lesson-button:hover {
+    background-color: #218838;
+    color: white; /* Keeps the text color as white when hovered */
 }
 
 .edit-icon {

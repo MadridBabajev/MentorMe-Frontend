@@ -2,7 +2,7 @@
 import { ValidateAuthenticationInputs } from "../services/helpers/ValidateAuthenticationInputs";
 import {IRegisterData} from "../types/dto/identity/IRegisterData";
 import RegisterView from "./route-views/RegisterView";
-import {ECountries} from "../types/dto/domain/ECountries";
+import {ECountries} from "../types/dto/domain/enums/ECountries";
 import {UseIdentityForm} from "../services/helpers/custom-hooks/UseIdentityForm";
 import {UseHandleJwtResponse} from "../services/helpers/custom-hooks/UseHandleJwtResponse";
 

@@ -1,6 +1,6 @@
 import {BaseEntityService} from "../base-services/BaseEntityService";
-import {ITutorSearch} from "../../types/dto/domain/ITutorSearch";
-import {ITutorFilterProps} from "../../types/props/ITutorFilterProps";
+import {ITutorSearch} from "../../types/dto/domain/profiles/ITutorSearch";
+import {ITutorFilterProps} from "../../types/props/profiles/ITutorFilterProps";
 
 export class TutorsSearchService extends BaseEntityService<ITutorSearch> {
     constructor() {

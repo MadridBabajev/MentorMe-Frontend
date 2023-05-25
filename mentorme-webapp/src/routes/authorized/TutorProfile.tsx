@@ -3,13 +3,9 @@ import {ProfileMainContent, ProfileSidebar} from "../route-views/ProfileViews";
 import {TutorProfileService} from "../../services/app-services/TutorProfileService";
 import {useProfileData} from "../../services/helpers/custom-hooks/UseProfileData";
 import {Loader} from "../../components/layout/Loader";
+import {IProfileProps} from "../../types/props/profiles/IProfileProps";
 
-interface ProfileProps {
-    id: string;
-    visitedUserId?: string;
-}
-
-export const TutorProfile = (props: ProfileProps) => {
+export const TutorProfile = (props: IProfileProps) => {
     // fetch data using the tutor profile service instead of the profile service
 
     const service = useMemo(() => new TutorProfileService(), []);
@@ -23,11 +19,10 @@ export const TutorProfile = (props: ProfileProps) => {
         );
     }
 
-    console.log(profileData)
     return (
         <div className="profile-container">
-            <ProfileSidebar profileData={profileData} isPublic={profileData?.isPublic}/>
-            <ProfileMainContent profileData={profileData} isPublic={profileData?.isPublic} id={props.id}/>
+            <ProfileSidebar profileData={profileData} userType={props.userType!} />
+            <ProfileMainContent profileData={profileData} userType={props.userType!} id={props.id}/>
         </div>
     );
 };

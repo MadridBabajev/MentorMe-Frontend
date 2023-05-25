@@ -1,4 +1,4 @@
-import {EDayOfTheWeek} from "./EDayOfTheWeek";
+import {EDayOfTheWeek} from "../enums/EDayOfTheWeek";
 
 export interface IAvailability {
     fromHours: string,

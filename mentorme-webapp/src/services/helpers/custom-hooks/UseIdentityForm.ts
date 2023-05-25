@@ -6,7 +6,7 @@ import {IdentityService} from "../../app-services/IdentityService";
 import {ILoginData} from "../../../types/dto/identity/ILoginData";
 import {IRegisterData} from "../../../types/dto/identity/IRegisterData";
 import IJWTResponse from "../../../types/dto/identity/IJWTResponse";
-import {ECountries} from "../../../types/dto/domain/ECountries";
+import {ECountries} from "../../../types/dto/domain/enums/ECountries";
 import {IdentityServiceResponse} from "../../../types/dto/identity/IdentityServiceResponse";
 type SubmitFunctionType = "login" | "register";
 type InitialValuesType = ILoginData | IRegisterData;
@@ -18,7 +18,7 @@ export const UseIdentityForm = (
     submitFunction: SubmitFunctionType
 ) => {
     const navigate = useNavigate();
-    const {jwtResponse, setJwtResponse} = useContext(JwtContext);
+    const {setJwtResponse} = useContext(JwtContext);
     const identityService = new IdentityService();
     const [jwtData, setJwtData] = useState<IJWTResponse | undefined>();
 
@@ -77,7 +77,6 @@ export const UseIdentityForm = (
             setJwtData(jwtData);
             await setJwtResponse!(jwtData);
 
-            console.log(`Set JwtResponse from ${submitFunction}:`, jwtData);
             localStorage.setItem('jwt', jwtData.jwt);
             localStorage.setItem('refreshToken', jwtData.refreshToken);
 

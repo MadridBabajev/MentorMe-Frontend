@@ -1,22 +1,20 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
-import {ITutorSearch} from "../types/dto/domain/ITutorSearch";
-import {ISubjectFilterElement} from "../types/dto/domain/ISubjectFilterElement";
+import {ITutorSearch} from "../types/dto/domain/profiles/ITutorSearch";
+import {ISubjectFilterElement} from "../types/dto/domain/subjects/ISubjectFilterElement";
 import JwtContext from "../types/context/JwtContext";
 import {useNavigate} from "react-router-dom";
 import {TutorsSearchService} from "../services/app-services/TutorsSearchService";
 import {SubjectsFilterService} from "../services/app-services/SubjectsFilterService";
 import {CheckAndDecodeJWT} from "../services/helpers/CheckAndDecodeJWT";
-import {ITutorFilterProps} from "../types/props/ITutorFilterProps";
+import {ITutorFilterProps} from "../types/props/profiles/ITutorFilterProps";
 import {TutorsSearchViews} from "./route-views/TutorsSearchViews";
 import {Loader} from "../components/layout/Loader";
 import "../styles/pages/tutors-search.css";
-import {IJwtPayload} from "../types/dto/identity/IJwtPayload";
 
 const TutorsSearch = () => {
     const { jwtResponse, setJwtResponse } = useContext(JwtContext);
     const navigate = useNavigate();
 
-    const [jwtPayload, setJwtPayload] = useState<IJwtPayload | undefined>();
     const [tutors, setTutors] = useState<ITutorSearch[]>([]);
     const [subjects, setSubjects] = useState<ISubjectFilterElement[]>([]);
     const [loading, setLoading] = useState(true);
@@ -37,7 +35,6 @@ const TutorsSearch = () => {
             // Only try to decode the JWT if one exists
             if (jwtResponse) {
                 const { decodedJwtData } = CheckAndDecodeJWT({ jwtResponse, setJwtResponse })!;
-                setJwtPayload(decodedJwtData!);
                 if (decodedJwtData?.UserType === 'Tutor') {
                     navigate("/profile");
                 }
@@ -45,7 +42,6 @@ const TutorsSearch = () => {
         } catch (error) {
             console.error("Failed to decode JWT", error);
             localStorage.clear();
-            // Remove the navigation to '/login' here
         }
     }, [jwtResponse, navigate]);
 

@@ -1,4 +1,4 @@
-import {IBaseEntity} from "./base/IBaseEntity";
+import {IBaseEntity} from "../base/IBaseEntity";
 
 export interface ISubjectDetails extends IBaseEntity {
     name: string,

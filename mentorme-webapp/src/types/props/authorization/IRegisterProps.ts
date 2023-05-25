@@ -1,4 +1,4 @@
-import {IRegisterData} from "../dto/identity/IRegisterData";
+import {IRegisterData} from "../../dto/identity/IRegisterData";
 import { MouseEvent } from "react"
 
 export interface IRegisterProps {

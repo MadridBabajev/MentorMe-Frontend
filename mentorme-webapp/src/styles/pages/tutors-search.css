@@ -1,5 +1,5 @@
 .tutors-search-container {
-    margin: 4rem auto; /* Increase space around the container */
+    margin: 4rem auto;
     max-width: 900px;
     padding: 20px;
     background-color: #f8f9fa;
@@ -48,7 +48,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 60px;
-    /*gap: 1rem; !* Increase gap between cards *!*/
 }
 
 .tutor-card {
@@ -74,14 +73,14 @@
 .w-25 {
     flex: 0 0 25%;
     max-width: 15%;
-    padding-right: 1rem; /* Add space between image and details */
-    border-right: 1px solid #ccc; /* Add border between image and details */
+    padding-right: 1rem;
+    border-right: 1px solid #ccc;
 }
 
 .tutor-details {
     flex-grow: 1;
     flex-basis: 0;
-    padding-left: 1rem; /* Add space between image and details */
+    padding-left: 1rem;
     font-family: 'Comfortaa', 'Quicksand', sans-serif;
 }
 
@@ -89,7 +88,6 @@
     flex-basis: 0;
     flex-grow: 1;
     padding-left: 1rem;
-    /*text-align: right;*/
 }
 
 .tutor-stats div {
@@ -106,6 +104,6 @@
 }
 
 .tutor-details > div:first-child {
-    font-size: 18px; /* Make first and last name bigger */
+    font-size: 18px;
     font-weight: bold;
 }

@@ -1,9 +1,8 @@
 import Axios, { AxiosInstance } from 'axios';
-import IJWTResponse from "../../types/dto/identity/IJWTResponse";
 import EventEmitter from "events";
 import IRefreshTokenModel from "../../types/dto/identity/IRefreshTokenModel";
+import {IRefreshTokenResponse} from "../../types/dto/identity/IRefreshTokenResponse";
 
-// TODO: Make the jwt auto-refreshable !!! The problem is that it fails to decode the response received from the endpoint
 export abstract class BaseService {
     private static hostBaseURL = "http://localhost:5289/api/";
 
@@ -32,19 +31,17 @@ export abstract class BaseService {
             // only refresh token if it's expired, not if it's close to expiry
             if (token && refreshToken && expiryTime && new Date().getTime() > Number(expiryTime)) {
                 // Token is expired, refresh it
-                console.log('Refreshing token...');
                 const response = await this.axiosForRefresh.post(
                     BaseService.hostBaseURL + "v1/identity/account/RefreshToken",
-                    { jwt: token, refreshToken: refreshToken } as IRefreshTokenModel) as IJWTResponse;  // include the refresh token in the request body
-                console.log('Refresh token response:', response);
-                // Update local storage with new token and expiry time
-                localStorage.setItem('jwt', response!.jwt);
-                localStorage.setItem('refreshToken', response!.refreshToken);
-                localStorage.setItem('jwtExpiry', String(new Date().getTime() + response!.expiresIn * 1000));
+                    { jwt: token, refreshToken: refreshToken } as IRefreshTokenModel) as IRefreshTokenResponse;
 
-                JwtRefreshEvent.emit('refresh', response);
-                // Update the token in the original request
-                config.headers.Authorization = `Bearer ${response!.jwt}`;
+                // Update local storage with new token and expiry time values
+                localStorage.setItem('jwt', response.data.jwt);
+                localStorage.setItem('refreshToken', response.data.refreshToken);
+                localStorage.setItem('jwtExpiry', String(new Date().getTime() + response.data.expiresIn * 1000));
+
+                JwtRefreshEvent.emit('refresh', response.data);
+                config.headers.Authorization = `Bearer ${response.data.jwt}`;
             }
 
             return config;

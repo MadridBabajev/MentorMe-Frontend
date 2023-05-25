@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {ITutorSearchProps} from "../../types/props/ITutorSearchProps";
+import {ITutorSearchProps} from "../../types/props/profiles/ITutorSearchProps";
 import JwtContext from "../../types/context/JwtContext";
 import {useNavigate} from "react-router-dom";
 import unknownProfilePicture from "../../assets/unknown-profile.png";

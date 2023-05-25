@@ -32,7 +32,6 @@ export class IdentityService extends BaseService {
         try {
             const response = await this.axios.post<IJWTResponse>('login', data);
 
-            console.log('login response', response);
             if (response.status === 200) {
                 return [response.data, null];
             }
@@ -47,7 +46,6 @@ export class IdentityService extends BaseService {
     async logout(data: ILogout): Promise<boolean> {
         try {
             const response = await this.axios.post('logout', data);
-            console.log('logout response', response);
             return response.status === 200;
         } catch (e) {
             console.log('error: ', (e as Error).message);

@@ -30,7 +30,7 @@ body {
 }
 
 .greyH2 {
-    font-size: 22px;
+    font-size: 24px;
     color: #555;
     margin-bottom: 5px;
     font-family: 'Comfortaa', 'Quicksand', sans-serif !important;
@@ -38,9 +38,9 @@ body {
 
 .mainH1 {
     margin: 0;
-    font-size: 42px;
+    font-size: 38px;
     font-weight: bold;
-    font-family: 'Quicksand Light', sans-serif !important;
+    font-family: 'Comfortaa', 'Quicksand', sans-serif !important;
 }
 
 .whiteH3 {
@@ -128,4 +128,13 @@ body {
     padding-top: 20px;
     font-size: 1.75em;
     font-weight: bolder;
+}
+
+.star {
+    cursor: pointer;
+    transition: color 200ms;
+}
+
+.star:hover {
+    color: #ffc107;
 }

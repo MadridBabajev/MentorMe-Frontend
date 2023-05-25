@@ -1,0 +1,23 @@
+.card {
+    cursor: pointer;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.15s ease-in-out;
+    /*text-align: left;*/
+}
+
+.card:hover {
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.card .card-title {
+    margin-bottom: 0;
+    font-family: 'Comfortaa', 'Quicksand', sans-serif;
+}
+
+.card-titles {
+    width: 40%;
+}
+
+.card .card-title {
+    line-height: 1.5
+}

@@ -1,5 +1,7 @@
 export const MyAvailability = () => {
-    <>
-        My availability page
-    </>
+    return (
+        <div>
+            My availability page
+        </div>
+        )
 }

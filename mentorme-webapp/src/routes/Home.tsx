@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import IPricingColumnProps from "../types/props/IPricingColumnProps";
+import IPricingColumnProps from "../types/props/layout/IPricingColumnProps";
 
 import "../styles/pages/home.css"
 import schoolPricingIcon from "../assets/pricing-icons/pricing-school-icon.svg"

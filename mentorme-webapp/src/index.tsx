@@ -24,14 +24,12 @@ import Profile from "./routes/authorized/Profile";
 import {PaymentMethods} from "./routes/authorized/PaymentMethods";
 import {BankingDetails} from "./routes/authorized/BankingDetails";
 import {Inbox} from "./routes/authorized/Inbox";
+import {MyLessons} from "./routes/authorized/MyLessons";
+import {MyAvailability} from "./routes/authorized/MyAvailability";
+import Lesson from "./routes/authorized/Lesson";
+import ReserveLesson from "./routes/authorized/ReserveLesson";
+import Payment from "./routes/authorized/Payment";
 
-function MyLessons() {
-    return null;
-}
-
-function MyAvailability() {
-    return null;
-}
 
 const router = createBrowserRouter([
     {
@@ -64,30 +62,40 @@ const router = createBrowserRouter([
                 element: <SubjectDetails />,
             },
             {
+                path: "/lesson/:lessonId",
+                element: <Lesson />,
+            },
+            {
                 path: "/profile",
-                element: <Profile />,
-                children: [
-                    {
-                        path: "my-lessons",
-                        element: <MyLessons />,
-                    },
-                    {
-                        path: "my-availability",
-                        element: <MyAvailability />,
-                    },
-                    {
-                        path: "payment-methods",
-                        element: <PaymentMethods />,
-                    },
-                    {
-                        path: "banking-details",
-                        element: <BankingDetails />,
-                    },
-                    {
-                        path: "inbox",
-                        element: <Inbox />,
-                    }
-                ]
+                element: <Profile />
+            },
+            {
+                path: "/my-lessons",
+                element: <MyLessons />,
+            },
+            {
+                path: "/reserve-lesson",
+                element: <ReserveLesson />,
+            },
+            {
+                path: "/my-availability",
+                element: <MyAvailability />,
+            },
+            {
+                path: "/payment-methods",
+                element: <PaymentMethods />,
+            },
+            {
+                path: "/payment/:paymentId",
+                element: <Payment />,
+            },
+            {
+                path: "/banking-details",
+                element: <BankingDetails />,
+            },
+            {
+                path: "/inbox",
+                element: <Inbox />,
             }
         ]
     }

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import {IFooterColumnProps, IFooterLink} from "../../types/props/IFooterColumnProps";
-import "../../styles/layout/footer.css"; // Import the footer.css file
+import {IFooterColumnProps, IFooterLink} from "../../types/props/layout/IFooterColumnProps";
+import "../../styles/layout/footer.css";
 
 // TODO: Fix footer links!
 const Footer = () => {

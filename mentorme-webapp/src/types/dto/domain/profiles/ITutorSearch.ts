@@ -1,4 +1,4 @@
-import {IBaseEntity} from "./base/IBaseEntity";
+import {IBaseEntity} from "../base/IBaseEntity";
 
 export interface ITutorSearch extends IBaseEntity {
     firstName: string;

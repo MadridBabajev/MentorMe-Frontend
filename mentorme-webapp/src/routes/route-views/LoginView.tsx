@@ -1,7 +1,7 @@
 
-import { ILoginProps } from "../../types/props/ILoginProps";
+import { ILoginProps } from "../../types/props/authorization/ILoginProps";
 import React from "react";
-import {IRegisterInputProps} from "../../types/props/IRegisterInputProps";
+import {IRegisterInputProps} from "../../types/props/authorization/IRegisterInputProps";
 
 const LoginView = (props: ILoginProps) => {
 

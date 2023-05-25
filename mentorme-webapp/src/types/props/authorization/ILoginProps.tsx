@@ -1,4 +1,4 @@
-import {ILoginData} from "../dto/identity/ILoginData";
+import {ILoginData} from "../../dto/identity/ILoginData";
 import {MouseEvent} from "react";
 
 export interface ILoginProps {

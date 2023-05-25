@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useMemo, useState} from "react";
-import {ISubjectDetails} from "../types/dto/domain/ISubjectDetails";
+import {ISubjectDetails} from "../types/dto/domain/subjects/ISubjectDetails";
 import {SubjectsDetailsService} from "../services/app-services/SubjectDetailsService";
 import "../styles/pages/subject-details.css";
 

@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from "react";
 import { Card } from 'react-bootstrap';
 import { SubjectsListService } from "../services/app-services/SubjectsListService";
-import { ISubjectListElement } from "../types/dto/domain/ISubjectListElement";
+import { ISubjectListElement } from "../types/dto/domain/subjects/ISubjectListElement";
 import "../styles/pages/subjects-list.css"
 import {Link} from "react-router-dom";
 import {Loader} from "../components/layout/Loader";
@@ -16,7 +16,6 @@ const SubjectsList = () => {
     useEffect(() => {
         service.getAll(allSubjectsPath).then(
             response => {
-                console.log(response);
                 if (response){
                     setSubjects(response);
                 } else {

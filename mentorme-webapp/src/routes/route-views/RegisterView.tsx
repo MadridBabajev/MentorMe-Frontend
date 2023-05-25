@@ -1,8 +1,8 @@
 
-import { IRegisterProps } from "../../types/props/IRegisterProps";
-import {IRegisterInputProps} from "../../types/props/IRegisterInputProps";
+import { IRegisterProps } from "../../types/props/authorization/IRegisterProps";
+import {IRegisterInputProps} from "../../types/props/authorization/IRegisterInputProps";
 import React from "react";
-import {ECountries} from "../../types/dto/domain/ECountries";
+import {ECountries} from "../../types/dto/domain/enums/ECountries";
 
 const RegisterView = (props: IRegisterProps) => {
 
