@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {LessonDataService} from "../../services/app-services/LessonDataService";
 import LessonView from "../route-views/LessonView";
@@ -11,10 +11,14 @@ import {INewTag} from "../../types/dto/domain/lessons/INewTag";
 import {CheckAndDecodeJWT} from "../../services/helpers/CheckAndDecodeJWT";
 import JwtContext from "../../types/context/JwtContext";
 import {EReviewType} from "../../types/dto/domain/enums/EReviewType";
+import {notificationManager} from "../../services/helpers/NotificationManager";
+import {Notifications} from "../../types/strings/Notifications";
+import {GetServicePaths} from "../../types/strings/GetServicePaths";
+import {UserTypes} from "../../types/strings/UserTypes";
 
 const Lesson = () => {
     const { lessonId } = useParams();
-    const lessonService = new LessonDataService();
+    const lessonService = useMemo(() => new LessonDataService(), []);
     const { jwtResponse, setJwtResponse } = useContext(JwtContext);
     const [lessonData, setLessonData] = useState<ILesson | undefined>(undefined);
     const [privileges, setPrivileges] = useState<ILessonPrivileges | undefined>(undefined);
@@ -22,12 +26,11 @@ const Lesson = () => {
     const [showAddReviewModal, setShowAddReviewModal] = useState<boolean>(false);
     const [userReview, setUserReview] = useState<IUserReview | undefined>(undefined);
 
-    const getLessonDataPath = `GetLessonData/${lessonId}`;
+    const getLessonDataPath = `${GetServicePaths.LESSON_DATA}/${lessonId}`;
 
-    const fetchLessonData = async () => {
+    const fetchLessonData = useCallback( async () => {
         const response = await lessonService.findOneById(getLessonDataPath);
         if (response) {
-            console.log("Fetched lesson data:", response)
             setLessonData(response);
 
             // Calculate privileges once lesson data is available
@@ -39,94 +42,63 @@ const Lesson = () => {
                 canReview: response.lessonState === 2 && response.userCanWriteReview,
             });
         }
-    };
+    }, [lessonService, getLessonDataPath]);
 
     useEffect(() => {
         fetchLessonData().catch( () => {
-            console.log("Failed to fetch lesson data")
+            console.error("Failed to fetch lesson data")
         });
-        const { decodedJwtData: decodedJwtData } =
+        const { decodedJwtData } =
             CheckAndDecodeJWT({ jwtResponse: jwtResponse, setJwtResponse})!;
         setUserReview({
             lessonId: lessonId!,
-            reviewType: decodedJwtData?.UserType === 'Student' ?
+            reviewType: decodedJwtData?.UserType === UserTypes.STUDENT ?
                 EReviewType.ReviewOfTutor : EReviewType.ReviewOfStudent,
             studentId: lessonData?.lessonStudent.id!,
             tutorId: lessonData?.lessonTutor.id!,
             comment: '',
             rating: 5
         })
-    }, [lessonId]);
+    }, [lessonId, jwtResponse, setJwtResponse]);
 
     if (!lessonData || !privileges) {
         return <Loader />
     }
 
     const handleAddReview = async (userReview: IUserReview) => {
-        console.log("adding review: " + userReview);
-        try {
-            const response = await
-                lessonService.leaveReview(userReview);
-            console.log("Tag Removal Response:", response);
-            await fetchLessonData();
-        } catch (error) {
-            console.error(`Failed to remove tag: ${error}`);
-        }
+        await lessonService.leaveReview(userReview);
+        await fetchLessonData();
+        notificationManager.showSuccessNotification(Notifications.REVIEW_ADDED);
     }
 
     const handleTagRemoval = async (tagId: string) => {
-        console.log("removing the tag: " + tagId);
-        try {
-            const response = await lessonService.removeTag({ tagId: tagId });
-            console.log("Tag Removal Response:", response);
-            await fetchLessonData();
-        } catch (error) {
-            console.error(`Failed to remove tag: ${error}`);
-        }
+        await lessonService.removeTag({ tagId: tagId });
+        await fetchLessonData();
+        notificationManager.showErrorNotification(Notifications.TAG_DELETED);
     };
 
     const handleTagAddition = async (newTag: INewTag) => {
-        console.log("adding a tag");
-        try {
-            const response = await lessonService.addTag(newTag);
-            console.log("Tag Addition Response:", response);
-            await fetchLessonData();
-        } catch (error) {
-            console.error(`Failed to add tag: ${error}`);
-        }
+        await lessonService.addTag(newTag);
+        await fetchLessonData();
+        notificationManager.showSuccessNotification(Notifications.TAG_ADDED);
     };
 
     const handleCancellation = async () => {
-        console.log("cancelling the lesson");
-        try {
-            const response = await lessonService.cancelLesson(lessonId!);
-            console.log("Cancellation Response:", response);
-            await fetchLessonData();
-        } catch (error) {
-            console.error(`Failed to cancel lesson: ${error}`);
-        }
+        await lessonService.cancelLesson(lessonId!);
+        await fetchLessonData();
+        notificationManager.showErrorNotification(Notifications.LESSON_CANCELLED);
     };
 
     const handleLessonAccept = async (tutorDecision: ETutorDecision) => {
-        console.log("accepting the lesson");
-        try {
-            const response = await lessonService.acceptDeclineLesson(lessonId!, tutorDecision);
-            console.log("Lesson Acceptance Response:", response);
-            await fetchLessonData();
-        } catch (error) {
-            console.error(`Failed to accept lesson: ${error}`);
-        }
+        await lessonService.acceptDeclineLesson(lessonId!, tutorDecision);
+        await fetchLessonData();
+        notificationManager.showSuccessNotification(Notifications.LESSON_ACCEPTED);
     };
 
     const handleLessonDecline = async (tutorDecision: ETutorDecision) => {
-        console.log("declining the lesson");
-        try {
-            const response = await lessonService.acceptDeclineLesson(lessonId!, tutorDecision);
-            console.log("Lesson Declination Response:", response);
-            await fetchLessonData();
-        } catch (error) {
-            console.error(`Failed to decline lesson: ${error}`);
-        }
+        await lessonService.acceptDeclineLesson(lessonId!, tutorDecision);
+        await fetchLessonData();
+        notificationManager.showErrorNotification(Notifications.LESSON_DECLINED);
     };
 
     return (

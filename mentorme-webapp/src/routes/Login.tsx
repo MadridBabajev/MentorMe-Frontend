@@ -2,7 +2,7 @@ import LoginView from "./route-views/LoginView";
 import {ILoginData} from "../types/dto/identity/ILoginData";
 import {UseIdentityForm} from "../services/helpers/custom-hooks/UseIdentityForm";
 import {UseHandleJwtResponse} from "../services/helpers/custom-hooks/UseHandleJwtResponse";
-import {ValidateAuthenticationInputs} from "../services/helpers/ValidateAuthenticationInputs";
+import {ValidateAuthenticationInputs} from "../services/helpers/validations/ValidateAuthenticationInputs";
 
 const Login = () => {
     const initialValues: ILoginData = {

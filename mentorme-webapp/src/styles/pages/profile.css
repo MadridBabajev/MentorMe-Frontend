@@ -47,29 +47,16 @@
 .main-content {
     flex: 3;
     position: relative;
-    padding-left: 2rem;
 }
 
 .edit-button {
-    box-sizing: border-box;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: #28a745;
-    color: white;
     padding: 15px;
-    border-radius: 50%;
-    text-decoration: none;
     width: 65px;
     height: 65px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
 }
 
-.edit-button:hover {
-    background-color: #1e7e34;
+.edit-icon {
+    font-size: 1rem;
 }
 
 .reserve-lesson-button {
@@ -94,17 +81,13 @@
 
 .reserve-lesson-button:hover {
     background-color: #218838;
-    color: white; /* Keeps the text color as white when hovered */
-}
-
-.edit-icon {
-    font-size: 1rem;
+    color: white;
 }
 
 .subject-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-top: 2rem;
 }
 

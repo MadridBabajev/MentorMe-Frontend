@@ -7,21 +7,30 @@ import IJWTResponse from "../types/dto/identity/IJWTResponse";
 import JwtContext from "../types/context/JwtContext";
 import "../styles/site.css"
 import {JwtRefreshEvent} from "../services/base-services/BaseService";
+import {notificationManager} from "../services/helpers/NotificationManager";
+import NotificationPopup from "../components/layout/NotificationPopup";
+import {INotification} from "../types/props/layout/INotification";
+import {LocalStorage} from "../types/strings/LocalStorage";
+import {RefreshEvents} from "../types/strings/RefreshEvents";
 
 const Root = () => {
 
     const [jwtResponse, setJwtResponse] = useState(null as IJWTResponse | null);
-    console.log('Set JwtResponse from Root:', jwtResponse);
+    const [notification, setNotification] = useState<INotification>({ message: '', color: '' });
+
+    useEffect(() => {
+        notificationManager.setNotificationCallback(setNotification);
+    }, []);
 
     useEffect(() => {
         const listener = (newJwtResponse: IJWTResponse) => {
             setJwtResponse(newJwtResponse);
         };
 
-        JwtRefreshEvent.on('refresh', listener);
+        JwtRefreshEvent.on(RefreshEvents.JWT_REFRESH_EVENT, listener);
 
         return () => {
-            JwtRefreshEvent.off('refresh', listener);
+            JwtRefreshEvent.off(RefreshEvents.JWT_REFRESH_EVENT, listener);
         };
     }, []);
 
@@ -30,12 +39,14 @@ const Root = () => {
             <Header />
 
             <div className="container">
-                <main style={{marginTop: "160px" }} role="main" className="pb-3">
+                <main style={{ marginTop: "160px" }} role="main" className="pb-3">
                     <Outlet />
                 </main>
             </div>
 
+            <NotificationPopup notification={notification} setNotification={setNotification} />
             <Footer />
+
         </JwtContext.Provider>
     );
 }

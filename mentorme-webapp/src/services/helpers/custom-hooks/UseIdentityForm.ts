@@ -8,6 +8,10 @@ import {IRegisterData} from "../../../types/dto/identity/IRegisterData";
 import IJWTResponse from "../../../types/dto/identity/IJWTResponse";
 import {ECountries} from "../../../types/dto/domain/enums/ECountries";
 import {IdentityServiceResponse} from "../../../types/dto/identity/IdentityServiceResponse";
+import {notificationManager} from "../NotificationManager";
+import {Notifications} from "../../../types/strings/Notifications";
+import {Navigations} from "../../../types/strings/Navigations";
+import {LocalStorage} from "../../../types/strings/LocalStorage";
 type SubmitFunctionType = "login" | "register";
 type InitialValuesType = ILoginData | IRegisterData;
 type ValidateInputsFunction = (values: ILoginData | IRegisterData) => string[];
@@ -77,13 +81,14 @@ export const UseIdentityForm = (
             setJwtData(jwtData);
             await setJwtResponse!(jwtData);
 
-            localStorage.setItem('jwt', jwtData.jwt);
-            localStorage.setItem('refreshToken', jwtData.refreshToken);
+            localStorage.setItem(LocalStorage.JWT, jwtData.jwt);
+            localStorage.setItem(LocalStorage.REFRESH_TOKEN, jwtData.refreshToken);
 
             const expiryTime = Date.now() + (jwtData.expiresIn * 1000);
-            localStorage.setItem('jwtExpiry', String(expiryTime));
+            localStorage.setItem(LocalStorage.EXPIRY, String(expiryTime));
 
-            navigate('/profile', { state: { jwtData } });
+            notificationManager.showSuccessNotification(Notifications.USER_AUTHORIZED);
+            navigate(Navigations.PROFILE, { state: { jwtData } });
         }
     }
 

@@ -1,10 +1,11 @@
 import {BaseEntityService} from "../base-services/BaseEntityService";
 import {ITutorSearch} from "../../types/dto/domain/profiles/ITutorSearch";
 import {ITutorFilterProps} from "../../types/props/profiles/ITutorFilterProps";
+import {HostURLs} from "../../types/strings/HostURLs";
 
 export class TutorsSearchService extends BaseEntityService<ITutorSearch> {
     constructor() {
-        super('v1/profile/');
+        super(HostURLs.PROFILE_CONTROLLER);
     }
 
     async getAllFilteredTutors(path: string, filters: ITutorFilterProps): Promise<ITutorSearch[] | undefined> {
@@ -12,7 +13,7 @@ export class TutorsSearchService extends BaseEntityService<ITutorSearch> {
             const processedFilters = Object.keys(filters).reduce((acc, key) => {
                 let value = filters[key as keyof ITutorFilterProps];
 
-                // Set default values for fields
+                // Setting up default values for fields
                 if (value === "") {
                     value = null;
                 }

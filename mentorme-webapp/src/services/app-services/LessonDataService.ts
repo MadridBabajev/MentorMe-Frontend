@@ -4,54 +4,52 @@ import {IRemoveTag} from "../../types/dto/domain/lessons/IRemoveTag";
 import {INewTag} from "../../types/dto/domain/lessons/INewTag";
 import {IUserReview} from "../../types/dto/domain/lessons/IUserReview";
 import {ETutorDecision} from "../../types/dto/domain/enums/ETutorDecision";
+import {HostURLs} from "../../types/strings/HostURLs";
 
 export class LessonDataService extends BaseEntityService<ILesson> {
     constructor() {
-        super("v1/lessons/");
+        super(HostURLs.LESSONS_CONTROLLER);
     }
 
     async leaveReview(userReview: IUserReview) {
         try {
-            return await this.axios.post('LeaveReview', userReview);
+            return await this.axios.post(HostURLs.LEAVE_REVIEW, userReview);
         } catch (error) {
             console.error(`Failed to leave a review: ${error}`);
-            throw error;
         }
     }
 
     async addTag(newTag: INewTag) {
         try {
-            return await this.axios.post('AddTag', newTag);
+            return await this.axios.post(HostURLs.ADD_TAG, newTag);
         } catch (error) {
             console.error(`Failed to add a tag: ${error}`);
-            throw error;
         }
     }
 
     async removeTag(removeTag: IRemoveTag) {
         try {
-            return await this.axios.post('RemoveTag', removeTag);
+            return await this.axios.post(HostURLs.REMOVE_TAG, removeTag);
         } catch (error) {
             console.error(`Failed to remove a tag: ${error}`);
-            throw error;
         }
     }
 
     async cancelLesson(lessonId: string) {
         try {
-            return await this.axios.post(`CancelLesson/${lessonId}`);
+            return await this.axios.post(`${HostURLs.CANCEL_LESSON}/${lessonId}`);
         } catch (error) {
             console.error(`Failed to cancel the lesson: ${error}`);
-            throw error;
         }
     }
 
     async acceptDeclineLesson(lessonId: string, tutorDecision: ETutorDecision) {
         try {
-            return await this.axios.post(`AcceptDeclineLesson`, { lessonId: lessonId, tutorDecision: tutorDecision });
+            return await this.axios.post(HostURLs.ACCEPT_DECLINE_LESSON, {
+                lessonId: lessonId,
+                tutorDecision: tutorDecision });
         } catch (error) {
             console.error(`Failed to accept/decline the lesson: ${error}`);
-            throw error;
         }
     }
 }

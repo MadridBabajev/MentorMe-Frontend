@@ -1,5 +1,5 @@
 
-import { ValidateAuthenticationInputs } from "../services/helpers/ValidateAuthenticationInputs";
+import { ValidateAuthenticationInputs } from "../services/helpers/validations/ValidateAuthenticationInputs";
 import {IRegisterData} from "../types/dto/identity/IRegisterData";
 import RegisterView from "./route-views/RegisterView";
 import {ECountries} from "../types/dto/domain/enums/ECountries";

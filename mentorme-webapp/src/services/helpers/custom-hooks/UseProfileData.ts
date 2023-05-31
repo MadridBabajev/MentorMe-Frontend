@@ -10,7 +10,6 @@ export const useProfileData = (service: BaseProfileService, profileDetailsPath: 
     useEffect(() => {
         service.getUserProfile(profileDetailsPath, visitedUserId)
             .then(response => {
-                // await timeout(3000);
                 setProfileData(response as IStudentProfileData | ITutorProfileData | undefined);
             })
             .catch(error => {

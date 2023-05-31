@@ -1,5 +1,5 @@
 
-/* Global */
+/* Global styles */
 body,
 p,
 a,
@@ -69,9 +69,11 @@ body {
 }
 
 .btn-primary:hover,
-.btn-primary:focus {
-    background-color: #218838;
-    border-color: #1e7e34;
+.btn-primary:active,
+.btn-primary.active,
+.show > .btn-primary.dropdown-toggle {
+    background-color: #218838 !important;
+    border-color: #1e7e34 !important;
 }
 
 .simple-text {
@@ -90,6 +92,7 @@ body {
     font-weight: bold;
     border-bottom: 3px solid  #a93232;
     list-style-type: none;
+    line-height: 1.5;
     padding: 5px;
     margin: 10px 0;
     font-size: 20px;
@@ -114,7 +117,7 @@ body {
 
 .loader-container {
     display: flex;
-    flex-direction: column; /* Aligns children (loader and text) vertically */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 50vh;
@@ -138,3 +141,71 @@ body {
 .star:hover {
     color: #ffc107;
 }
+
+.filter-container button, .form-submit-button, .availability-form button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 2rem;
+    color: #fff;
+    font-size: 18px;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    float: right;
+}
+
+.edit-button {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #28a745;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    text-decoration: none;
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+    background-color: #1e7e34;
+}
+
+.notification-popup {
+    position: fixed;
+    bottom: 15px;
+    right: 40%;
+    width: 350px;
+    padding: 15px;
+    margin: 20px;
+    border-radius: 5px;
+    color: #fff;
+    z-index: 9999;
+    display: block;
+    opacity: 0.9;
+    transition: all 0.5s ease;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Comfortaa', 'Quicksand', sans-serif;
+    text-align: center;
+}
+
+.notification-popup.SUCCESS {
+    background-color: #53c766;
+    border: 3px solid #41a050;
+}
+
+.notification-popup.ERROR {
+    background-color: #ea7171;
+    border: 3px solid #d86060;
+}
+
+
+

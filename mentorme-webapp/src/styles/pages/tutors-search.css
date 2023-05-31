@@ -25,19 +25,6 @@
     border-color: #28a745;
 }
 
-.filter-container button {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.5rem 2rem;
-    color: #fff;
-    background-color: #28a745;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    float: right; /* Aligns the button to the right */
-}
-
 .filter-container button:hover,
 .filter-container button:active {
     background-color: #218838;

@@ -57,7 +57,7 @@
 }
 
 .selection-container label:hover {
-    background-color: #66ce74 ; /* Changed to light-light green */
+    background-color: #66ce74;
 }
 
 .selection-container input[type="radio"]:checked + label {

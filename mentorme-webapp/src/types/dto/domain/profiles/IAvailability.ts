@@ -1,7 +1,8 @@
 import {EDayOfTheWeek} from "../enums/EDayOfTheWeek";
+import {IBaseEntity} from "../base/IBaseEntity";
 
-export interface IAvailability {
-    fromHours: string,
-    toHours: string,
-    dayOfTheWeek: EDayOfTheWeek
+export interface IAvailability extends IBaseEntity {
+    fromHours: string;
+    toHours: string;
+    dayOfTheWeek: EDayOfTheWeek;
 }

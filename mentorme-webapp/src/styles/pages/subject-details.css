@@ -1,6 +1,6 @@
 .subject-details {
     text-align: center;
-    line-height: 1.6; /* adjust this value to your liking */
+    line-height: 1.6;
 }
 
 .subject-image {
@@ -32,7 +32,7 @@
     padding: 10px;
     text-align: center;
     border-radius: 5px;
-    border: 1px solid black; /* added this line */
+    border: 1px solid black;
     margin-left: 10px;
     font-family: 'Comfortaa', 'Quicksand', sans-serif !important;
 }
@@ -55,6 +55,44 @@
 .subject-description {
     margin-top: 15px;
     font-size: 18px;
-    line-height: 1.6; /* adjust this value to your liking */
+    line-height: 1.6;
     font-family: 'Assistant', 'Roboto', sans-serif !important;
+}
+
+.subject-action {
+    position: absolute;
+    top: 20px;
+    left: 60px;
+}
+
+.add-remove-button {
+    border: none;
+    border-radius: 50%;
+    padding: 20px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-remove-button.add {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.add-remove-button.add:hover {
+    background-color: #218838;
+}
+
+.add-remove-button.remove {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+.add-remove-button.remove:hover {
+    background-color: #c82333;
 }

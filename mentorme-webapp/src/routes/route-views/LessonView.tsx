@@ -3,7 +3,6 @@ import {Link, useNavigate} from "react-router-dom";
 import {ISubjectListElement} from "../../types/dto/domain/subjects/ISubjectListElement";
 import unknownProfilePicture from "../../assets/unknown-profile.png";
 import {IProfileCardProps} from "../../types/props/profiles/IProfileCardProps";
-import "../../styles/pages/lesson.css"
 import {Card} from "react-bootstrap";
 import {ILesson} from "../../types/dto/domain/lessons/ILesson";
 import React, {useState} from "react";
@@ -15,6 +14,9 @@ import {ETutorDecision} from "../../types/dto/domain/enums/ETutorDecision";
 import {TagAdditionFormProps} from "../../types/props/lessons/TagAdditionFormProps";
 import {ReviewAdditionFormProps} from "../../types/props/lessons/ReviewAdditionFormProps";
 import StarRating from "../../components/layout/StarRating";
+import {Navigations} from "../../types/strings/Navigations";
+import {Patterns} from "../../types/strings/Patterns";
+import "../../styles/pages/lesson.css"
 
 
 const lessonStateColorMap: Record<ELessonState, string> = {
@@ -48,14 +50,14 @@ const LessonView = (props: ILessonViewProps) => {
         event.preventDefault();
         props.handleLessonAccept(ETutorDecision.Accept)
             .catch( () => {
-                console.log("Error accepting the lesson")
+                console.error("Error accepting the lesson")
             });
     };
 
     const handleLessonDeclineClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         props.handleLessonDecline(ETutorDecision.Decline).catch( () => {
-            console.log("Error declining the lesson")
+            console.error("Error declining the lesson")
         });
     };
 
@@ -111,11 +113,12 @@ const LessonView = (props: ILessonViewProps) => {
                 </div>
                 <div className="mt-3 main-content-actions">
                     <button
-                        className={`action-button btn btn-primary ${!props.privileges.canReview && 'disabled'} btn-grey-outline`}
+                        className={`action-button sub-action btn btn-primary ${!props.privileges.canReview && 'disabled'} btn-grey-outline`}
                         onClick={handleAddReviewClick}>
-                        Leave Review
+                        <span className="action-button-text">Leave Review</span>
                     </button>
-                    <Link className="action-button btn btn-primary payments-btn" to={`/payment/${props.lessonData.paymentId}`}>View Payment</Link>
+                    <Link className="action-button sub-action btn btn-primary payments-btn" to={`${Navigations.PAYMENT}/${props.lessonData.paymentId}`}>
+                        <span className="action-button-text">View Payment</span></Link>
                 </div>
                 <div className="mt-5">
                     <h3 style={{textAlign: "center", fontWeight: "500", fontSize: "30px"}} className="mb-3 greyH2">Tags</h3>
@@ -132,26 +135,27 @@ const LessonView = (props: ILessonViewProps) => {
             <div className="actions">
                 <div style={{textAlign: "center", fontWeight: "500", fontSize: "30px", marginTop: "15px"}}
                      className="mb-4 greyH2">Actions</div>
-                <button className={`action-button btn btn-danger ${!props.privileges.canCancel && 'disabled'}`} onClick={props.handleCancellation}>Cancel</button>
+                <button className={`action-button btn btn-danger ${!props.privileges.canCancel && 'disabled'}`} onClick={props.handleCancellation}><span className="action-button-text">Cancel</span></button>
                 {props.privileges.canAcceptDecline && <>
-                    <button className="action-button btn btn-primary" onClick={handleLessonAcceptClick}>Accept</button>
-                    <button className="action-button btn btn-danger" onClick={handleLessonDeclineClick}>Decline</button></>
+                    <button className="action-button btn btn-primary" onClick={handleLessonAcceptClick}><span className="action-button-text">Accept</span></button>
+                    <button className="action-button btn btn-danger" onClick={handleLessonDeclineClick}><span className="action-button-text">Decline</span></button></>
                 }
                 {props.privileges.canAddTag &&
                     <button className={`action-button btn btn-secondary ${!props.privileges.canAddTag && 'disabled'}`}
-                            onClick={handleTagAdditionClick}>+ Tag</button>}
+                            onClick={handleTagAdditionClick}><span className="action-button-text">+ Tag</span></button>}
             </div>
         </div>
     );
 };
 
 const LessonSidebar = ({ lessonData }: { lessonData: ILesson }) => {
+
     return (
         <div className="left-sidebar">
             <h3 style={{textAlign: "center", fontWeight: "500", fontSize: "30px"}}
                 className="mb-3 greyH2">Details</h3>
-            <div className="simple-text">Start date: {new Date(lessonData.startTime).toLocaleString()}</div>
-            <div className="simple-text">End date: {new Date(lessonData.endTime).toLocaleString()}</div>
+            <div className="simple-text">Start date: {new Date(lessonData.startTime).toLocaleString(undefined, {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'})}</div>
+            <div className="simple-text">End date: {new Date(lessonData.endTime).toLocaleString(undefined, {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'})}</div>
             <div className="simple-text">Price: {lessonData.price}</div>
             <div className="simple-text">Payment method: {lessonData.studentPaymentMethod
                 ? paymentMethodTextMap[lessonData.studentPaymentMethod.paymentMethodType] : 'N/A'}
@@ -165,8 +169,8 @@ const LessonSidebar = ({ lessonData }: { lessonData: ILesson }) => {
 const SubjectCard = ({id, name, subjectPicture}: ISubjectListElement) => {
     return (
         <Card className="subject-card mb-3" key={id} style={{ height: '300px' }}>
-            <Link to={`/subjects/${id}`}>
-                <Card.Img className="card-image" variant="top" src={subjectPicture ? `data:image/png;base64,${subjectPicture}` : ''} />
+            <Link to={`${Navigations.SUBJECTS}/${id}`}>
+                <Card.Img className="card-image" variant="top" src={subjectPicture ? `${Patterns.DECODE_IMG}${subjectPicture}` : ''} />
                 <Card.Body>
                     <Card.Title className="greyH2 subject-card-title">{name}</Card.Title>
                 </Card.Body>
@@ -179,13 +183,13 @@ const ProfileCard = ({ profile, label }: IProfileCardProps) => {
     const navigate = useNavigate();
 
     const handleCardClick = () => {
-        navigate('/profile', { state: { id: profile.id} });
+        navigate(Navigations.PROFILE, { state: { id: profile.id, visitedUserType: label} });
     };
 
     return (
         <Card className="profile-card mb-3" onClick={handleCardClick} style={{ height: '300px' }}>
             <Card.Img className="card-image" variant="top"
-                      src={!profile.profilePicture ? unknownProfilePicture : `data:image/png;base64,${profile.profilePicture}`} />
+                      src={!profile.profilePicture ? unknownProfilePicture : `${Patterns.DECODE_IMG}${profile.profilePicture}`} />
             <Card.Body>
                 <Card.Title className="greyH2">{profile.fullName}</Card.Title>
                 <Card.Text className="simple-text">{label}</Card.Text>
@@ -264,7 +268,7 @@ const ReviewAdditionForm = (props: ReviewAdditionFormProps) => {
             reviewType: props.reviewType,
             rating: reviewRating,
             comment: reviewComment
-        }).catch(() => {console.log("Error handling a review")});
+        }).catch(() => {console.error("Error handling a review")});
 
         props.handleCloseAddReviewModal();
     };

@@ -10,6 +10,10 @@ import {ITutorFilterProps} from "../types/props/profiles/ITutorFilterProps";
 import {TutorsSearchViews} from "./route-views/TutorsSearchViews";
 import {Loader} from "../components/layout/Loader";
 import "../styles/pages/tutors-search.css";
+import {GetServicePaths} from "../types/strings/GetServicePaths";
+import {Navigations} from "../types/strings/Navigations";
+import {Patterns} from "../types/strings/Patterns";
+import {UserTypes} from "../types/strings/UserTypes";
 
 const TutorsSearch = () => {
     const { jwtResponse, setJwtResponse } = useContext(JwtContext);
@@ -35,23 +39,23 @@ const TutorsSearch = () => {
             // Only try to decode the JWT if one exists
             if (jwtResponse) {
                 const { decodedJwtData } = CheckAndDecodeJWT({ jwtResponse, setJwtResponse })!;
-                if (decodedJwtData?.UserType === 'Tutor') {
-                    navigate("/profile");
+                if (decodedJwtData?.UserType === UserTypes.TUTOR) {
+                    navigate(Navigations.PROFILE);
                 }
             }
         } catch (error) {
-            console.error("Failed to decode JWT", error);
+            console.error("Failed to decode JWT" + error);
             localStorage.clear();
         }
-    }, [jwtResponse, navigate]);
+    }, [jwtResponse, navigate, setJwtResponse]);
 
     const fetchData = useCallback(async () => {
         setLoading(true);
         const subjectService = new SubjectsFilterService();
         const tutorService = new TutorsSearchService();
         const [subjectData, tutorData] = await Promise.all([
-            subjectService.getAll("GetSubjectFilters"),
-            tutorService.getAllFilteredTutors("GetTutorsList", filters)
+            subjectService.getAll(GetServicePaths.SUBJECT_FILTERS),
+            tutorService.getAllFilteredTutors(GetServicePaths.TUTORS_LIST, filters)
         ]);
         setSubjects(subjectData || []);
         setTutors(tutorData || []);
@@ -78,7 +82,7 @@ const TutorsSearch = () => {
 
     const handleKeyPress = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
         const keyCode = event.code;
-        const allowedKeys = /Digit[0-9]|NumpadDecimal|Period|Minus|NumpadSubtract|Backspace/;
+        const allowedKeys = new RegExp(Patterns.ALLOWED_NUMBER_INPUTS);
         if (!keyCode.match(allowedKeys)) {
             event.preventDefault();
         }
@@ -92,7 +96,7 @@ const TutorsSearch = () => {
         fetchData().catch(error => {
             console.error('Failed to fetch data:', error);
         });
-    }, []);
+    }, [fetchData]);
 
     if (loading) {
         return <Loader />;

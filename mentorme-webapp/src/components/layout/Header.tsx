@@ -8,6 +8,9 @@ import logo from "../../assets/MentorMe-logo.png";
 import inboxSvg from "../../assets/inbox-icon.svg";
 import {IJwtPayload} from "../../types/dto/identity/IJwtPayload";
 import {IdentityService} from "../../services/app-services/IdentityService";
+import {LocalStorage} from "../../types/strings/LocalStorage";
+import {Navigations} from "../../types/strings/Navigations";
+import {UserTypes} from "../../types/strings/UserTypes";
 
 const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -16,18 +19,18 @@ const Header = () => {
     const navigate = useNavigate();
 
     const handleStorageChange = useCallback(() => {
-        let jwtToken = localStorage.getItem('jwt');
+        let jwtToken = localStorage.getItem(LocalStorage.JWT);
         if (jwtToken) {
             setIsLoggedIn(true);
             let decodedJwtData;
             try {
                 decodedJwtData = jwt_decode(jwtToken) as IJwtPayload;
             } catch (error) {
-                console.error("Failed to decode JWT:", error);
+                console.error("Failed to decode JWT:" + error);
                 setIsLoggedIn(false);
                 setUserType(null);
                 localStorage.clear()
-                navigate("/login");
+                navigate(Navigations.LOGIN);
                 return;
             }
             setUserType(decodedJwtData?.UserType || null);
@@ -58,7 +61,7 @@ const Header = () => {
 
 const HeaderLogo = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
     return(
-        <Link to={isLoggedIn ? "/profile" : "/"} className="mentormelogolamp">
+        <Link to={isLoggedIn ? Navigations.PROFILE : "/"} className="mentormelogolamp">
             <img
                 className="header-logo" alt="MentorMe logo"
                 src={logo}
@@ -81,15 +84,16 @@ const HeaderLinks = ({ isLoggedIn, userType}: { isLoggedIn: boolean, userType: s
                     if (setJwtResponse) {
                         setJwtResponse(null);
                     }
-                    // Clear the JWT token and refresh token from local storage
-                    localStorage.removeItem('jwt');
-                    localStorage.removeItem('refreshToken');
+
+                    localStorage.removeItem(LocalStorage.JWT);
+                    localStorage.removeItem(LocalStorage.REFRESH_TOKEN);
+                    localStorage.removeItem(LocalStorage.EXPIRY);
                     navigate("/");
                 } else {
                     console.error("Logout failed");
                 }
             } catch (error) {
-                console.error("Failed to logout:", error);
+                console.error("Failed to logout:" + error);
             }
         }
     }
@@ -101,14 +105,14 @@ const HeaderLinksViews = ({isLoggedIn, userType, logout}: { isLoggedIn: boolean,
     if (isLoggedIn) {
         return (
             <div className="right-nav-items">
-                <Link to="/subjects" className="right-nav-item">Subjects</Link>
-                {userType === 'Student' && <Link to="/tutors-search" className="right-nav-item">Tutors</Link>}
-                <Link to="/my-lessons" className="right-nav-item">My lessons</Link>
-                {userType === 'Tutor' && <Link to="/my-availability" className="right-nav-item">My availability</Link>}
-                {userType === 'Student' && <Link to="/payment-methods" className="right-nav-item">Payment methods</Link>}
-                {userType === 'Tutor' && <Link to="/banking-details" className="right-nav-item">Banking details</Link>}
-                <Link to="/profile" className="right-nav-item">My Profile</Link>
-                <Link to="/inbox" className="right-nav-item email-icon-container">
+                <Link to={Navigations.SUBJECTS} className="right-nav-item">Subjects</Link>
+                {userType === UserTypes.STUDENT && <Link to={Navigations.TUTOR_SEARCH} className="right-nav-item">Tutors</Link>}
+                <Link to={Navigations.MY_LESSONS} className="right-nav-item">My lessons</Link>
+                {userType === UserTypes.TUTOR && <Link to={Navigations.MY_AVAILABILITY} className="right-nav-item">My availability</Link>}
+                {userType === UserTypes.STUDENT && <Link to={Navigations.PAYMENT_METHODS} className="right-nav-item">Payment methods</Link>}
+                {userType === UserTypes.TUTOR && <Link to={Navigations.BANKING_DETAILS} className="right-nav-item">Banking details</Link>}
+                <Link to={Navigations.PROFILE} className="right-nav-item">My Profile</Link>
+                <Link to={Navigations.INBOX} className="right-nav-item email-icon-container">
                     <img src={inboxSvg} className="email-icon" alt="inbox"/>
                 </Link>
                 <button onClick={logout} className="right-nav-item header-login-logout-btn">Logout</button>
@@ -118,10 +122,10 @@ const HeaderLinksViews = ({isLoggedIn, userType, logout}: { isLoggedIn: boolean,
 
     return (
         <div className="right-nav-items">
-            <Link to="/tutors-search" className="right-nav-item">Tutors</Link>
-            <Link to="/subjects" className="right-nav-item">Subjects</Link>
-            <Link to="/register" className="right-nav-item">Register</Link>
-            <Link to="/login" className="right-nav-item header-login-logout-btn">Log in</Link>
+            <Link to={Navigations.TUTOR_SEARCH} className="right-nav-item">Tutors</Link>
+            <Link to={Navigations.SUBJECTS} className="right-nav-item">Subjects</Link>
+            <Link to={Navigations.REGISTER} className="right-nav-item">Register</Link>
+            <Link to={Navigations.LOGIN} className="right-nav-item header-login-logout-btn">Log in</Link>
         </div>
     )
 };

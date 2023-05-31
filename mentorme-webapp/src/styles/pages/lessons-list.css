@@ -2,7 +2,6 @@
     cursor: pointer;
     margin-bottom: 2rem;
     transition: box-shadow 0.15s ease-in-out;
-    /*text-align: left;*/
 }
 
 .card:hover {

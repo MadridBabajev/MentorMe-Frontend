@@ -4,14 +4,14 @@
 }
 
 .subject-card img {
-    height: 200px; /* adjust this value to your liking */
+    height: 200px;
     object-fit: cover;
 }
 
 .subject-card .card-title {
     text-align: center;
     font-weight: bold;
-    color: #555; /* adjust this value to your liking */
+    color: #555;
 }
 
 .subject-card a {

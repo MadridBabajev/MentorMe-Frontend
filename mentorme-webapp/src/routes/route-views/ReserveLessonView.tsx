@@ -9,7 +9,6 @@ import {IPaymentMethodsSelectionProps} from "../../types/props/lessons/IPaymentM
 import {ISubjectSelectionProps} from "../../types/props/lessons/ISubjectSelectionProps";
 export const ReserveLessonView = (props: IReserveLessonProps) => {
     if (!props.reserveLessonData) {
-        // Loading state or handle error
         return <Loader />;
     }
 

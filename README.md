@@ -15,12 +15,13 @@ npx create-react-app mentorme-webapp --template typescript --use-npm
 npm install
 
 ~~~
-## Install Bootstrap and React icons
+## Styles (Bootstrap, React icons, Custom elements)
 ~~~bash
 npm i jquery popper.js bootstrap font-awesome
 npm i --save-dev @types/jquery @types/bootstrap
 npm install react-bootstrap bootstrap
 npm install react-icons --save
+npm install react-select
 ~~~
 
 ## Install React Router

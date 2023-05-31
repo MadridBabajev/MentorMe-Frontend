@@ -14,6 +14,7 @@ export abstract class BaseEntityService<TEntity extends IBaseEntity> extends Bas
             }
             return undefined;
         } catch (e) {
+            console.error("Error retrieving a list of entities from the backend: " + e);
             return undefined;
         }
     }
@@ -27,7 +28,7 @@ export abstract class BaseEntityService<TEntity extends IBaseEntity> extends Bas
             }
             return undefined;
         } catch (e) {
-            console.log(e);
+            console.error("Error retrieving an entity from the backend: " + e);
             return undefined;
         }
     }

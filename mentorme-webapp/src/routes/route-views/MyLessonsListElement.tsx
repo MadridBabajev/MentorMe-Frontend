@@ -28,8 +28,8 @@ export const MyLessonsListElement = (props: MyLessonsViewProps) => {
             <Card.Body>
                 <div className="d-flex justify-content-between">
                     <div className="card-titles">
-                        <Card.Title>Start Time: {new Date(props.lessonData.startTime).toLocaleString()}</Card.Title>
-                        <Card.Title>End Time: {new Date(props.lessonData.endTime).toLocaleString()}</Card.Title>
+                        <Card.Title>Start Time: {new Date(props.lessonData.startTime).toLocaleString(undefined, {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'})}</Card.Title>
+                        <Card.Title>End Time: {new Date(props.lessonData.endTime).toLocaleString(undefined, {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'})}</Card.Title>
                         <Card.Title>Price: {props.lessonData.lessonPrice}</Card.Title>
                     </div>
                     <div className="card-titles">

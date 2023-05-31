@@ -50,15 +50,48 @@
 }
 
 .actions button {
-    padding: 10px 20px;
+    padding: 30px 50px;
     margin-bottom: 10px;
     border: none;
     cursor: pointer;
     transition: background-color .3s ease-in-out;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sub-action {
+    padding: 40px 60px !important;
+    margin-bottom: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color .3s ease-in-out;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-button-text {
+    font-size: 22px !important;
+    font-family: 'Comfortaa', 'Quicksand', sans-serif !important;
 }
 
 .actions button:hover {
     background-color: #218838;
+}
+
+.payments-btn {
+    background-color: #157fe6;
+    border-color: #157fe6;
+}
+
+.payments-btn:hover {
+    background-color: #1568e6 !important;
+    border-color: #1568e6 !important;
 }
 
 .lesson .main-content .profile-card,
@@ -87,21 +120,6 @@
     height: 200px;
     object-fit: cover;
     border-bottom: 1px solid black;
-}
-
-.payments-btn {
-    background-color: #157fe6;
-    border-color: #157fe6;
-}
-
-.payments-btn:hover {
-    background-color: #1568e6;
-    border-color: #1568e6;
-}
-
-.action-button {
-    font-size: 22px;
-    padding: 10px;
 }
 
 .btn.disabled {

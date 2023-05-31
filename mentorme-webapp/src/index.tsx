@@ -2,15 +2,13 @@ import 'bootstrap';
 import 'popper.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
+import 'semantic-ui-css/semantic.min.css';
 
 import './styles/site.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
+import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 
 import ErrorPage from "./pages/ErrorPage";
 import Root from "./routes/Root";
@@ -29,6 +27,8 @@ import {MyAvailability} from "./routes/authorized/MyAvailability";
 import Lesson from "./routes/authorized/Lesson";
 import ReserveLesson from "./routes/authorized/ReserveLesson";
 import Payment from "./routes/authorized/Payment";
+import {Navigations} from "./types/strings/Navigations";
+import {EditProfile} from "./routes/authorized/EditProfile";
 
 
 const router = createBrowserRouter([
@@ -42,59 +42,63 @@ const router = createBrowserRouter([
                 element: <Home />,
             },
             {
-                path: "/login",
+                path: Navigations.LOGIN,
                 element: <Login />,
             },
             {
-                path: "/register",
+                path: Navigations.REGISTER,
                 element: <Register />,
             },
             {
-                path: "/tutors-search",
+                path: Navigations.TUTOR_SEARCH,
                 element: <TutorsSearch />,
             },
             {
-                path: "/subjects",
+                path: Navigations.SUBJECTS,
                 element: <SubjectsList />,
             },
             {
-                path: "/subjects/:id",
+                path: `${Navigations.SUBJECTS}/:id`,
                 element: <SubjectDetails />,
             },
             {
-                path: "/lesson/:lessonId",
+                path: `${Navigations.LESSON}/:lessonId`,
                 element: <Lesson />,
             },
             {
-                path: "/profile",
+                path: Navigations.PROFILE,
                 element: <Profile />
             },
             {
-                path: "/my-lessons",
+                path: Navigations.EDIT_PROFILE,
+                element: <EditProfile />
+            },
+            {
+                path: Navigations.MY_LESSONS,
                 element: <MyLessons />,
             },
             {
-                path: "/reserve-lesson",
+                path: Navigations.RESERVE_LESSON,
                 element: <ReserveLesson />,
             },
             {
-                path: "/my-availability",
+                path: Navigations.MY_AVAILABILITY,
                 element: <MyAvailability />,
             },
             {
-                path: "/payment-methods",
+                path: Navigations.PAYMENT_METHODS,
                 element: <PaymentMethods />,
             },
             {
-                path: "/payment/:paymentId",
+                path: `${Navigations.PAYMENT}/:paymentId`,
                 element: <Payment />,
             },
             {
-                path: "/banking-details",
+                path: Navigations.BANKING_DETAILS,
                 element: <BankingDetails />,
             },
             {
-                path: "/inbox",
+                path: Navigations.INBOX,
                 element: <Inbox />,
             }
         ]

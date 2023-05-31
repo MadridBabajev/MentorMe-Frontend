@@ -4,12 +4,12 @@ import {TutorProfileService} from "../../services/app-services/TutorProfileServi
 import {useProfileData} from "../../services/helpers/custom-hooks/UseProfileData";
 import {Loader} from "../../components/layout/Loader";
 import {IProfileProps} from "../../types/props/profiles/IProfileProps";
+import {GetServicePaths} from "../../types/strings/GetServicePaths";
 
 export const TutorProfile = (props: IProfileProps) => {
-    // fetch data using the tutor profile service instead of the profile service
 
     const service = useMemo(() => new TutorProfileService(), []);
-    const profileDetailsPath = `GetTutorProfile`;
+    const profileDetailsPath = GetServicePaths.TUTOR_DATA;
 
     const {profileData, loading} = useProfileData(service, profileDetailsPath, props.visitedUserId ?? null);
 

@@ -1,0 +1,84 @@
+.payment-method-card {
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    background-color: white;
+    position: relative;
+    border: 1px solid #218838;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.payment-method-card .payment-method-card-left,
+.payment-method-card .payment-method-card-right {
+    width: 45%;
+    line-height: 1.75;
+}
+
+.payment-method-card .payment-method-card-header {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.payment-method-card .payment-method-card-name {
+    margin: 0;
+    font-size: 20px;
+    font-family: 'Comfortaa', 'Quicksand', sans-serif;
+}
+
+.payment-method-card .payment-method-card-blocked {
+    color: grey;
+    font-size: 16px;
+    font-family: 'Quicksand Light', 'Arial', sans-serif;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.payment-method-card .payment-method-remove-button {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.ui.card {
+    background-color: lightgray;
+    border-radius: 15px;
+}
+
+.payment-method-form-container {
+    margin: 4rem auto;
+    max-width: 900px;
+    padding: 20px 20px 70px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+
+.filter-container input[type="text"] {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.filter-container input[type="text"]:focus {
+    outline: none;
+    border-color: #28a745;
+}
+
+.filter-container button:hover,
+.filter-container button:active {
+    background-color: #218838;
+}

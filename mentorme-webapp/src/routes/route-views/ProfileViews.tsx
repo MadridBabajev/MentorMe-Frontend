@@ -7,15 +7,18 @@ import defaultImage from "../../assets/unknown-profile.png";
 import {ReactComponent as PencilIcon} from '../../assets/pencil-icon.svg';
 import {IProfileViewProps} from "../../types/props/profiles/IProfileViewProps";
 import {EDayOfTheWeek} from "../../types/dto/domain/enums/EDayOfTheWeek";
-
-const getProfileBalanceColor = (balance: number | undefined): string =>
-        balance && balance >= 0 ? 'green' : 'red';
+import {Patterns} from "../../types/strings/Patterns";
+import {UserTypes} from "../../types/strings/UserTypes";
+import {Navigations} from "../../types/strings/Navigations";
+// TODO: Remove the state when navigating to the edit page
+const getProfileBalanceColor = (): string =>
+        'green';
 
 export const ProfileSidebar = ({ profileData }: IProfileViewProps) => (
     <div className="sidebar">
         <Image
             className="profile-picture"
-            src={profileData?.profilePicture ? `data:image/png;base64,${profileData.profilePicture}` : defaultImage}
+            src={profileData?.profilePicture ? `${Patterns.DECODE_IMG}${profileData.profilePicture}` : defaultImage}
         />
         <div className="greyH2 name-rating d-flex justify-content-center align-items-center">
             <div>{profileData?.firstName} {profileData?.lastName}</div>
@@ -27,7 +30,7 @@ export const ProfileSidebar = ({ profileData }: IProfileViewProps) => (
         {!profileData?.isPublic && (
             <div className="mt-5 simple-text d-flex justify-content-center flex-column">
                 <h2 className="greyH2">Current balance</h2>
-                <div className="balance" style={{color: getProfileBalanceColor(profileData?.balance)}}>{(profileData?.balance ?? 0).toFixed(2)}</div>
+                <div className="balance" style={{color: getProfileBalanceColor()}}>{(profileData?.balance ?? 0).toFixed(2)}</div>
             </div>
         )}
         {('hourlyRate' in profileData!) && profileData.hourlyRate && (
@@ -46,13 +49,13 @@ export const ProfileSidebar = ({ profileData }: IProfileViewProps) => (
 export const ProfileMainContent = ({ profileData, userType }: IProfileViewProps) => (
     <div className="main-content">
 
-        {profileData?.isPublic && (userType === "Student") && (
-            <Link to={`/reserve-lesson`} state={{ tutorId: profileData?.id }} className="reserve-lesson-button">
+        {profileData?.isPublic && (userType === UserTypes.STUDENT) && (
+            <Link to={`${Navigations.RESERVE_LESSON}`} state={{ tutorId: profileData?.id }} className="reserve-lesson-button">
                 Reserve Lesson
             </Link>
         )}
         {!profileData?.isPublic && (
-            <Link to={`/profile`} className="edit-button">
+            <Link to={`${Navigations.EDIT_PROFILE}`} className="edit-button">
                 <PencilIcon style={{height: "60px"}} />
             </Link>
         )}
@@ -61,10 +64,10 @@ export const ProfileMainContent = ({ profileData, userType }: IProfileViewProps)
         <h2 className="greyH2">Bio</h2>
         <p className="mt-2 simple-text">{profileData?.bio}</p>
         <h2 className="mt-2 greyH2">Details</h2>
-        <div className="mt-4 mb-4 d-flex justify-content-around">
-            <div className="simple-text">Phone: {profileData?.mobilePhone}</div>
+        <div className="mt-4 mb-4 d-flex flex-column justify-content-around">
+            <div style={{fontSize: "20px"}} className="simple-text">Phone: {profileData?.mobilePhone}</div>
             {!profileData?.isPublic && (
-                <div className="simple-text">Notifications: {profileData?.notificationsEnabled ? '✅' : '❌'}</div>
+                <div style={{fontSize: "20px"}} className="mt-3 simple-text">Notifications: {profileData?.notificationsEnabled ? '✅' : '❌'}</div>
             )}
         </div>
         {('availabilities' in profileData!) && profileData.availabilities && (
@@ -83,8 +86,8 @@ export const ProfileMainContent = ({ profileData, userType }: IProfileViewProps)
         <div className="subject-list">
             {profileData?.subjects.map((subject: ISubjectListElement) => (
                 <Card className="subject-card" key={subject.id}>
-                    <Link to={`/subjects/${subject.id}`}>
-                        <Card.Img variant="top" src={`data:image/png;base64,${subject.subjectPicture}`} />
+                    <Link to={`${Navigations.SUBJECTS}/${subject.id}`}>
+                        <Card.Img variant="top" src={`${Patterns.DECODE_IMG}${subject.subjectPicture}`} />
                         <Card.Body>
                             <Card.Title>{subject.name}</Card.Title>
                         </Card.Body>

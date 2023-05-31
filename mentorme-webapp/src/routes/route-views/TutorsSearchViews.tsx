@@ -2,14 +2,17 @@ import React, {useContext} from "react";
 import {ITutorSearchProps} from "../../types/props/profiles/ITutorSearchProps";
 import JwtContext from "../../types/context/JwtContext";
 import {useNavigate} from "react-router-dom";
-import unknownProfilePicture from "../../assets/unknown-profile.png";
 import {Card} from "react-bootstrap";
+import {Navigations} from "../../types/strings/Navigations";
+import {Patterns} from "../../types/strings/Patterns";
+import {UserTypes} from "../../types/strings/UserTypes";
+import defaultImage from "../../assets/unknown-profile.png";
 
 export const TutorsSearchViews = (props: ITutorSearchProps) => {
 
     return (
         <div style={{marginTop: "200px"}} className="tutors-search-container">
-            <h1 className="mainH1">Tutors Search</h1>
+            <h1 style={{textAlign: "center"}} className="mainH1">Tutors Search</h1>
             <TutorFilter {...props} />
             <TutorsList {...props} />
         </div>
@@ -62,15 +65,16 @@ const TutorsList = (props: ITutorSearchProps) => {
                 <Card className="tutor-card" key={tutor.id} onClick={
                     () => {
                         if (jwtResponse === null) {
-                            navigate('/login');
+                            navigate(Navigations.LOGIN);
                         } else {
-                            navigate('/profile', { state: { id: tutor.id } });
+                            navigate(Navigations.PROFILE, { state: { id: tutor.id, visitedUserType: UserTypes.TUTOR } });
                         }
                     }}>
                     <Card.Body className="d-flex">
                         <div className="w-25">
-                            <Card.Img className="tutor-image" src={!tutor.profilePicture ? unknownProfilePicture
-                                : `data:image/png;base64,${(new TextDecoder().decode(tutor.profilePicture))}`}
+                            <Card.Img className="tutor-image"
+                                      src={tutor?.profilePicture ?
+                                          `${Patterns.DECODE_IMG}${tutor.profilePicture}` : defaultImage}
                                       alt={`${tutor.firstName} ${tutor.lastName}`} />
                         </div>
                         <div className="tutor-details">

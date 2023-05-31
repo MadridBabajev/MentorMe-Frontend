@@ -5,12 +5,15 @@ import { ReserveLessonService } from "../../services/app-services/ReserveLessonS
 import { IReserveLessonData } from "../../types/props/lessons/IReserveLessonData";
 import { IReserveLessonValues } from "../../types/props/lessons/IReserveLessonValues";
 import {ICalendarProps} from "../../types/props/lessons/ICalendarProps";
+import {notificationManager} from "../../services/helpers/NotificationManager";
+import {Notifications} from "../../types/strings/Notifications";
+import {Navigations} from "../../types/strings/Navigations";
 
 export type TimeSlot = {
     startTime: Date;
     endTime: Date;
 };
-
+// TODO: This is a partial implementation
 const ReserveLesson = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -35,16 +38,16 @@ const ReserveLesson = () => {
                 const response = await reserveLessonService.getReserveLessonData(visitedTutorId);
                 setReserveLessonData(response);
             } catch (error) {
-                console.error('Error fetching reserve lesson data:', error);
+                console.error('Error fetching reserve lesson data: ' + error);
             }
         };
         fetchReserveLessonData().catch(() => {
-            console.log("Failed to fetch Reserve lesson data..")});
+            console.error("Failed to fetch Reserve lesson data")});
 
     }, [navigate, visitedTutorId]);
 
     const onReserve = async () => {
-        // Validate selection
+        // Validate selected fields
         if (
             !reserveLessonValues.tutorId ||
             !reserveLessonValues.selectedSubject ||
@@ -59,15 +62,15 @@ const ReserveLesson = () => {
         setShowValidationMessage(false);
 
         try {
-            // Create lesson by sending the selected values to the backend
+            // Create lesson and navigate to the lesson page
             const response =
                 await reserveLessonService.reserveLesson(reserveLessonValues);
             const lessonId = response!.lessonId;
 
-            // Redirect to the lesson page
-            navigate(`/lesson/${lessonId}`);
+            notificationManager.showSuccessNotification(Notifications.LESSON_RESERVED);
+            navigate(`${Navigations.LESSON}/${lessonId}`);
         } catch (error) {
-            console.error('Error reserving lesson:', error);
+            console.error('Error reserving lesson: ' + error);
         }
     };
 
@@ -80,10 +83,6 @@ const ReserveLesson = () => {
         });
 
     };
-
-    useEffect(() => {
-        console.log('Current values:', reserveLessonValues);
-    }, [reserveLessonValues]);
 
     return (
         <ReserveLessonView
@@ -111,7 +110,7 @@ export const Calendar = ({ availabilities, onSelectTime, selectedTimeSlot }: ICa
 
     const renderTimeSlots = (day: Date) => {
         const availabilitiesForDay = availabilities.filter(
-            (a) => a.dayOfTheWeek === day.getDay()
+            (a) => (a.dayOfTheWeek + 1) % 7 === day.getDay()
         );
 
         return availabilitiesForDay.flatMap((availability) => {
@@ -136,7 +135,7 @@ export const Calendar = ({ availabilities, onSelectTime, selectedTimeSlot }: ICa
             while (currentTime < endTime) {
                 const nextTime = new Date(
                     currentTime.getTime() + 60 * 60 * 1000
-                ); // Add 1 hour
+                );
                 const timeSlotKey = `${currentTime.toISOString()}-${nextTime.toISOString()}`;
 
                 timeSlots.push({
@@ -191,7 +190,7 @@ export const Calendar = ({ availabilities, onSelectTime, selectedTimeSlot }: ICa
 
             for (let i = 0; i < 7; i++) {
                 week.push(current);
-                current = new Date(current.getTime() + 24 * 60 * 60 * 1000); // next day
+                current = new Date(current.getTime() + 24 * 60 * 60 * 1000);
             }
 
             weeks.push(week);

@@ -1,35 +1,37 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {ILessonListElement} from "../../types/dto/domain/lessons/ILessonListElement";
 import {LessonsListService} from "../../services/app-services/LessonsListService";
 import {MyLessonsListElement} from "../route-views/MyLessonsListElement";
 import "../../styles/pages/lessons-list.css"
 import {useNavigate} from "react-router-dom";
+import {GetServicePaths} from "../../types/strings/GetServicePaths";
+import {Navigations} from "../../types/strings/Navigations";
 
 export const MyLessons = () => {
-    const service = new LessonsListService();
+    const service = useMemo(() => new LessonsListService(), []);
     const [lessons, setLessons] = useState<ILessonListElement[] | undefined>();
-    const fetchLessonsPath = "GetLessonsList";
+    const fetchLessonsPath = GetServicePaths.LESSON_LIST;
     const navigate = useNavigate();
 
+    const fetchData = useCallback( async () => {
+        const result = await service.getAll(fetchLessonsPath);
+
+        // Sort the lessons based on the start time, newest first
+        result!.sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime());
+
+        setLessons(result);
+    }, [service, fetchLessonsPath]);
+
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await service.getAll(fetchLessonsPath);
-            console.log("My lessons data: ", result)
 
-            // Sort the lessons based on the start time, newest first
-            result!.sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime());
-
-            setLessons(result);
-        };
 
         fetchData().catch( () => {
-            console.log("Failed to fetch lessons list")
+            console.error("Failed to fetch lessons list")
         });
-    }, []);
+    }, [fetchData]);
 
     const handleClick = (lessonId: string) => {
-        // Navigate to the lesson page when the card is clicked
-        navigate(`/lesson/${lessonId}`);
+        navigate(`${Navigations.LESSON}/${lessonId}`);
     }
 
     return (

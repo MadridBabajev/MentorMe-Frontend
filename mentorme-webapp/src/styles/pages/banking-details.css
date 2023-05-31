@@ -1,0 +1,107 @@
+
+/* Banking details. You can apply the same principles in our page, but this is a separate file */
+.banking-details-container {
+    margin: 2rem auto;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    line-height: 2;
+    position: relative;
+}
+
+.banking-details-input {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+.banking-details-input:focus {
+    outline: none;
+    border-color: #28a745;
+}
+
+.banking-details-text {
+    margin-left: 0.5rem;
+    padding-top: 1px;
+    color: #333;
+    font-weight: 700;
+    font-family: 'Comfortaa', 'Quicksand', sans-serif !important;
+    font-size: 18px;
+}
+
+.banking-details-actions {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.banking-details-validated {
+    color: #28a745;
+    font-weight: 700;
+    font-family: 'Comfortaa', 'Quicksand', sans-serif !important;
+    font-size: 17px;
+}
+
+.submit-icon, .cancel-icon {
+    position: absolute;
+    margin-left: 1rem;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 10px;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+.submit-icon {
+    background-color: #28a745;
+    right: 70px;
+}
+
+.submit-icon:hover {
+    background-color: #1e7e34;
+}
+
+.cancel-icon {
+    background-color: #f82323;
+    right: 10px;
+}
+
+.cancel-icon:hover {
+    background-color: #d71919;
+}
+
+.edit-button-banking-d {
+    position: absolute;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #28a745;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    top: 5px;
+    right: 20px;
+}
+
+.edit-button-banking-d:hover {
+    background-color: #1e7e34;
+    cursor: pointer;
+}
+
+.edit-icon {
+    width: 30px;
+    height: 30px;
+}
