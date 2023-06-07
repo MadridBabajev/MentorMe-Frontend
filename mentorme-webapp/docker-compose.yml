@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  react-distributed-app:
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 8080
+    ports:
+    # external:internal
+      - "8080:80"

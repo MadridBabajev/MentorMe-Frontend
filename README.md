@@ -28,23 +28,38 @@ npm install react-select
 ~~~bash
 npm install react-router-dom localforage match-sorter sort-by
 npm install @types/react-router-dom --save-dev
+# events
+npm install events
 ~~~
 
 ## Install axios
 ~~~bash
 npm install axios
+
+# Axios types
+npm install @types/axios --save-dev
 ~~~
 
 ## Install JWT decoder 
 ~~~bash
 npm install jwt-decode
-# Axios types
-npm install @types/axios --save-dev
 ~~~
 
 # Configure and run the app
 ~~~bash
 npm start
+~~~
+
+# Deploy the app
+~~~bash
+# 1. Change the host base url to the one of the deployed backend 
+# e.g. https://mb-distributed-22-23-backend.azurewebsites.net/api/
+# 2. Build the app and the container
+npm run build
+docker buildx build --progress=plain  -t webapp:latest .
+# 3. Deploy it
+docker tag webapp madridbabajev/distributed-22-23-webapp:latest
+docker push madridbabajev/distributed-22-23-webapp:latest
 ~~~
 
 # Student data

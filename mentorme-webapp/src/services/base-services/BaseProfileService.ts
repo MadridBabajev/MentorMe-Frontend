@@ -2,6 +2,7 @@ import {BaseEntityService} from "./BaseEntityService";
 import {IStudentProfileData} from "../../types/dto/domain/profiles/IStudentProfileData";
 import {ITutorProfileData} from "../../types/dto/domain/profiles/ITutorProfileData";
 import {HostURLs} from "../../types/strings/HostURLs";
+import {Specifiers} from "../../types/strings/Specifiers";
 
 export abstract class BaseProfileService extends BaseEntityService<IStudentProfileData | ITutorProfileData> {
     constructor() {
@@ -10,8 +11,11 @@ export abstract class BaseProfileService extends BaseEntityService<IStudentProfi
 
     async getUserProfile(path: string, visitedUserId: string | null): Promise<IStudentProfileData | ITutorProfileData | undefined> {
         try {
-            const body = { visitedUserId };
-            const response = await this.axios.post<IStudentProfileData | ITutorProfileData>(path, body);
+            let url = path;
+            if (visitedUserId) {
+                url += `${Specifiers.VISITED_USER}${visitedUserId}`;
+            }
+            const response = await this.axios.get<IStudentProfileData | ITutorProfileData>(url);
             if (response.status === 200) {
                 return response.data as IStudentProfileData | ITutorProfileData;
             }

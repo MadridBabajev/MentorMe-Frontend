@@ -96,7 +96,7 @@ const TutorsSearch = () => {
         fetchData().catch(error => {
             console.error('Failed to fetch data:', error);
         });
-    }, [fetchData]);
+    }, []);
 
     if (loading) {
         return <Loader />;

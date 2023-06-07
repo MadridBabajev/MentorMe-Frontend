@@ -1,7 +1,7 @@
 
 export enum HostURLs {
     // == Controllers ==
-    HOST_BASE_URL = "http://localhost:5289/api/",
+    HOST_BASE_URL = "https://mb-distributed-22-23-backend.azurewebsites.net/api/",
     ACCOUNT_CONTROLLER = "v1/identity/account/",
     PROFILE_CONTROLLER = "v1/profile/",
     LESSONS_CONTROLLER = "v1/lessons/",

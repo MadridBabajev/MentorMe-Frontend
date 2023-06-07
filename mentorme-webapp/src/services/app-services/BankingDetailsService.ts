@@ -9,7 +9,7 @@ export class BankingDetailsService extends BaseEntityService<ITutorBankingDetail
 
     async updateBankingDetails(updatedBankingDetails: ITutorBankingDetails) {
         try {
-            return await this.axios.post(HostURLs.EDIT_BANKING_DETAILS, updatedBankingDetails);
+            return await this.axios.put(HostURLs.EDIT_BANKING_DETAILS, updatedBankingDetails);
         } catch (error) {
             console.error(`Failed to edit the banking details: ${error}`);
         }

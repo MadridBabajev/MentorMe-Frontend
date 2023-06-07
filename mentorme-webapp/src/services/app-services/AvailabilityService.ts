@@ -2,6 +2,7 @@ import {BaseEntityService} from "../base-services/BaseEntityService";
 import {IAvailability} from "../../types/dto/domain/profiles/IAvailability";
 import {INewAvailability} from "../../types/dto/domain/profiles/INewAvailability";
 import {HostURLs} from "../../types/strings/HostURLs";
+import {Specifiers} from "../../types/strings/Specifiers";
 
 export class AvailabilityService extends BaseEntityService<IAvailability> {
     constructor() {
@@ -10,8 +11,7 @@ export class AvailabilityService extends BaseEntityService<IAvailability> {
 
     async deleteAvailability(availabilityId: string) {
         try {
-            return await this.axios.post(HostURLs.REMOVE_AVAILABILITY,
-                { availabilityId: availabilityId });
+            return await this.axios.delete(HostURLs.REMOVE_AVAILABILITY + `${Specifiers.AVAILABILITY}${availabilityId}`);
         } catch (error) {
             console.error(`Failed to remove an availability: ${error}`);
         }

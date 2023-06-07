@@ -9,7 +9,7 @@ export class EditProfileService extends BaseEntityService<IUpdatedProfileData> {
 
     async updateProfileData(updatedProfileData: IUpdatedProfileData) {
         try {
-            return await this.axios.post(HostURLs.EDIT_PROFILE_DETAILS, updatedProfileData);
+            return await this.axios.put(HostURLs.EDIT_PROFILE_DETAILS, updatedProfileData);
         } catch (error) {
             console.error(`Failed to edit the profile: ${error}`);
         }

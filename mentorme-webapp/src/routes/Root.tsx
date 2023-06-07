@@ -10,7 +10,6 @@ import {JwtRefreshEvent} from "../services/base-services/BaseService";
 import {notificationManager} from "../services/helpers/NotificationManager";
 import NotificationPopup from "../components/layout/NotificationPopup";
 import {INotification} from "../types/props/layout/INotification";
-import {LocalStorage} from "../types/strings/LocalStorage";
 import {RefreshEvents} from "../types/strings/RefreshEvents";
 
 const Root = () => {

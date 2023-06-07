@@ -5,6 +5,7 @@ import {INewTag} from "../../types/dto/domain/lessons/INewTag";
 import {IUserReview} from "../../types/dto/domain/lessons/IUserReview";
 import {ETutorDecision} from "../../types/dto/domain/enums/ETutorDecision";
 import {HostURLs} from "../../types/strings/HostURLs";
+import {Specifiers} from "../../types/strings/Specifiers";
 
 export class LessonDataService extends BaseEntityService<ILesson> {
     constructor() {
@@ -29,7 +30,7 @@ export class LessonDataService extends BaseEntityService<ILesson> {
 
     async removeTag(removeTag: IRemoveTag) {
         try {
-            return await this.axios.post(HostURLs.REMOVE_TAG, removeTag);
+            return await this.axios.delete(HostURLs.REMOVE_TAG + `${Specifiers.TAG}${removeTag.tagId}`);
         } catch (error) {
             console.error(`Failed to remove a tag: ${error}`);
         }
@@ -37,7 +38,8 @@ export class LessonDataService extends BaseEntityService<ILesson> {
 
     async cancelLesson(lessonId: string) {
         try {
-            return await this.axios.post(`${HostURLs.CANCEL_LESSON}/${lessonId}`);
+            return await this.axios.put(`${HostURLs.CANCEL_LESSON}`,
+                {lessonId: lessonId});
         } catch (error) {
             console.error(`Failed to cancel the lesson: ${error}`);
         }
@@ -45,7 +47,7 @@ export class LessonDataService extends BaseEntityService<ILesson> {
 
     async acceptDeclineLesson(lessonId: string, tutorDecision: ETutorDecision) {
         try {
-            return await this.axios.post(HostURLs.ACCEPT_DECLINE_LESSON, {
+            return await this.axios.put(HostURLs.ACCEPT_DECLINE_LESSON, {
                 lessonId: lessonId,
                 tutorDecision: tutorDecision });
         } catch (error) {

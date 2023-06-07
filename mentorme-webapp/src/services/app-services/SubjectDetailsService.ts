@@ -10,7 +10,7 @@ export class SubjectsDetailsService extends BaseEntityService<ISubjectDetails> {
 
     async handleSubjectAction(userSubjectAction: IUserSubjectAction) {
         try {
-            return await this.axios.post(HostURLs.SUBJECT_ACTION, {
+            return await this.axios.put(HostURLs.SUBJECT_ACTION, {
                 subjectId: userSubjectAction.subjectId,
                 subjectAction: userSubjectAction.subjectAction });
         } catch (error) {

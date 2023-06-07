@@ -2,6 +2,7 @@ import {IPaymentMethodDetailed} from "../../types/dto/domain/profiles/IPaymentMe
 import {BaseEntityService} from "../base-services/BaseEntityService";
 import {INewPaymentMethod} from "../../types/dto/domain/profiles/INewPaymentMethod";
 import {HostURLs} from "../../types/strings/HostURLs";
+import {Specifiers} from "../../types/strings/Specifiers";
 
 export class PaymentMethodService extends BaseEntityService<IPaymentMethodDetailed> {
     constructor() {
@@ -10,8 +11,7 @@ export class PaymentMethodService extends BaseEntityService<IPaymentMethodDetail
 
     async deletePaymentMethod(paymentMethodId: string) {
         try {
-            return await this.axios.post(HostURLs.REMOVE_PAYMENT_METHOD,
-                { paymentMethodId: paymentMethodId });
+            return await this.axios.delete(HostURLs.REMOVE_PAYMENT_METHOD + `${Specifiers.PAYMENT_METHOD}${paymentMethodId}`);
         } catch (error) {
             console.error(`Failed to remove a payment method: ${error}`);
         }
