@@ -1,0 +1,116 @@
+/* ml-features.css */
+
+/* Page Container */
+.ai-models-page {
+    margin-top: 2rem;
+    margin-bottom: 2rem; /* spacing at bottom */
+    font-family: 'Quicksand Light', sans-serif;
+}
+
+/* Page Title */
+.page-title {
+    font-size: 32px;
+    font-weight: bold;
+    font-family: 'Comfortaa', 'Quicksand', sans-serif !important;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* File Input Row */
+.file-input-row {
+    margin-bottom: 1.5rem;
+}
+.file-input-col {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.file-input-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color .3s ease-in-out;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Comfortaa', 'Quicksand', sans-serif;
+}
+
+.file-input-label:hover {
+    background-color: #1e7e34;
+}
+
+.form-control-file {
+    display: none;
+}
+
+/* Card (Server/Local sections) */
+.feature-card {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.feature-card .card-header {
+    background-color: #fafafa;
+    border-bottom: 1px solid #ddd;
+    padding: 0.75rem 1rem;
+    font-size: 1.25rem;
+}
+
+.section-heading {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+/* Button Row */
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Results Container & Box */
+.results-container {
+    margin-top: 1rem;
+}
+
+.result-box {
+    background-color: #fff;
+    border-radius: 6px;
+    border: 2px dashed #28a745;
+    padding: 1rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+}
+
+/* Title and Content in the box */
+.result-box-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #28a745;
+}
+
+.result-box-content {
+    white-space: pre-wrap;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #333;
+    background: #fefefe;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+/* On hover, subtly highlight the result box */
+.result-box:hover {
+    background-color: #f9fff9;
+    transition: background-color 0.3s ease-in-out;
+}

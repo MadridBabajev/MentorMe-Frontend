@@ -13,5 +13,6 @@ export enum Navigations {
     MY_LESSONS = "/my-lessons",
     RESERVE_LESSON = "/reserve-lesson",
     PAYMENT = "/payment",
-    INBOX = "/inbox"
+    INBOX = "/inbox",
+    ML_FEATURES = "/ml-features",
 }

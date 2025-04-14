@@ -18,7 +18,6 @@ import {Navigations} from "../../types/strings/Navigations";
 import {Patterns} from "../../types/strings/Patterns";
 import "../../styles/pages/lesson.css"
 
-
 const lessonStateColorMap: Record<ELessonState, string> = {
     [ELessonState.Pending]: 'blue', // Pending
     [ELessonState.Upcoming]: 'lightgreen', // Upcoming

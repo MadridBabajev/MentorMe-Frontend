@@ -105,6 +105,7 @@ const HeaderLinksViews = ({isLoggedIn, userType, logout}: { isLoggedIn: boolean,
     if (isLoggedIn) {
         return (
             <div className="right-nav-items">
+                <Link to={Navigations.ML_FEATURES} className="right-nav-item">ML Features</Link>
                 <Link to={Navigations.SUBJECTS} className="right-nav-item">Subjects</Link>
                 {userType === UserTypes.STUDENT && <Link to={Navigations.TUTOR_SEARCH} className="right-nav-item">Tutors</Link>}
                 <Link to={Navigations.MY_LESSONS} className="right-nav-item">My lessons</Link>
@@ -122,6 +123,7 @@ const HeaderLinksViews = ({isLoggedIn, userType, logout}: { isLoggedIn: boolean,
 
     return (
         <div className="right-nav-items">
+            <Link to={Navigations.ML_FEATURES} className="right-nav-item">ML Features</Link>
             <Link to={Navigations.TUTOR_SEARCH} className="right-nav-item">Tutors</Link>
             <Link to={Navigations.SUBJECTS} className="right-nav-item">Subjects</Link>
             <Link to={Navigations.REGISTER} className="right-nav-item">Register</Link>

@@ -1,13 +1,14 @@
 
 export enum HostURLs {
     // == Controllers ==
-    HOST_BASE_URL = "https://mb-distributed-22-23-backend.azurewebsites.net/api/",
+    HOST_BASE_URL = "http://localhost:80/api/",
     ACCOUNT_CONTROLLER = "v1/identity/account/",
     PROFILE_CONTROLLER = "v1/profile/",
     LESSONS_CONTROLLER = "v1/lessons/",
     SUBJECTS_CONTROLLER = "v1/subjects/",
     PAYMENT_METHOD_CONTROLLER = "v1/paymentMethod/",
     AVAILABILITY_CONTROLLER = "v1/availability/",
+    AI_MODELS_CONTROLLER = "v1/ai-models/",
 
     // == Actions ==
     // Identity

@@ -1,5 +1,7 @@
 # icd0006-22-23-s
 
+![ICD0021.png](..%2F..%2FDownloads%2FICD0021.png)
+
 # Starting the project
 ~~~bash
 

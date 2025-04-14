@@ -29,7 +29,7 @@ import ReserveLesson from "./routes/authorized/ReserveLesson";
 import Payment from "./routes/authorized/Payment";
 import {Navigations} from "./types/strings/Navigations";
 import {EditProfile} from "./routes/authorized/EditProfile";
-
+import {MLFeatures} from "./routes/MLFeatures";
 
 const router = createBrowserRouter([
     {
@@ -96,6 +96,10 @@ const router = createBrowserRouter([
             {
                 path: Navigations.BANKING_DETAILS,
                 element: <BankingDetails />,
+            },
+            {
+                path: Navigations.ML_FEATURES,
+                element: <MLFeatures />,
             },
             {
                 path: Navigations.INBOX,
