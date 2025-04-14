@@ -10,6 +10,7 @@ import { Loader } from "../components/layout/Loader";
  * It loads local (TFJS) models, provides server calls, etc.
  */
 export const MLFeatures = () => {
+    const SUMMARIZATION_MAX_CHARS = 4000;
     // --- State Management ---
     const [isLoadingModels, setIsLoadingModels] = useState(true);
     const [isLocalInferenceRunning, setIsLocalInferenceRunning] = useState(false);
@@ -23,24 +24,21 @@ export const MLFeatures = () => {
     const [localOcrText, setLocalOcrText] = useState<string[]>([]);
     const [localSummaryText, setLocalSummaryText] = useState<string>("");
     const [localCombinedText, setLocalCombinedText] = useState<string>("");
-
-    // Store the selected file name so we can display it next to the input
+    
     const [selectedFileName, setSelectedFileName] = useState<string>("");
-
-    // Store manual text for the Summarizer here
     const [manualText, setManualText] = useState<string>("");
-
+    
     // Paths to the TFJS models
     const localOCRModelPath = "./ml-models/ocr/model.json";
     const localSummarizationModelPath = `./ml-models/summarization/model.json`;
     const localSummarizationTokenizerPath = `./ml-models/summarization/tokenizer/tokenizer.json`;
-
+    
     // Create an instance of the server-based AI service
     const aiApiService = useMemo(() => new AiModelsService(), []);
-
+    
     // File input ref so we can read the user’s image
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-
+    
     // Load OCR and Summarizer models (TFJS) on mount
     const loadAllModels = useCallback(async () => {
         try {
@@ -55,14 +53,14 @@ export const MLFeatures = () => {
             setIsLoadingModels(false);
         }
     }, [localOCRModelPath, localSummarizationModelPath, localSummarizationTokenizerPath]);
-
+    
     // Trigger loading once on mount
     useEffect(() => {
         loadAllModels().catch(err => {
             console.error("Error occurred when loading models", err);
         });
     }, [loadAllModels]);
-
+    
     // Handle the changes the file input
     const handleFileInputChange = () => {
         const file = fileInputRef.current?.files?.[0];
@@ -72,7 +70,7 @@ export const MLFeatures = () => {
             setSelectedFileName("");
         }
     };
-
+    
     // ===========================
     //          SERVER CALLS
     // ===========================
@@ -83,13 +81,13 @@ export const MLFeatures = () => {
             alert("Please select an image first.");
             return;
         }
-
+        
         const result = await aiApiService.callOcrOnServer(file);
         if (result) {
             setRecognizedText(result);
         }
     };
-
+    
     const handleServerSummarize = async () => {
         resetServerOutputs();
         const textToSummarize = recognizedText.length
@@ -101,7 +99,7 @@ export const MLFeatures = () => {
             setSummaryText(result);
         }
     };
-
+    
     const handleServerOcrAndSummarize = async () => {
         resetServerOutputs();
         const file = fileInputRef.current?.files?.[0];
@@ -114,7 +112,7 @@ export const MLFeatures = () => {
             setCombinedResult(result);
         }
     };
-
+    
     // ===========================
     //       LOCAL INFERENCE
     // ===========================
@@ -125,7 +123,7 @@ export const MLFeatures = () => {
             alert("Please select an image first.");
             return;
         }
-
+        
         try {
             setIsLocalInferenceRunning(true);
             if (!LocalOcrModelService.modelHasLoaded()) {
@@ -141,23 +139,29 @@ export const MLFeatures = () => {
             setIsLocalInferenceRunning(false);
         }
     };
-
+    
     const handleLocalSummarize = async () => {
         if (!manualText.trim()) {
             alert("Please enter some text before summarizing");
             return;
         }
+        if (manualText.length > SUMMARIZATION_MAX_CHARS) {
+            alert(`Your text is too long! Please keep it under ${SUMMARIZATION_MAX_CHARS} characters!`);
+            return;
+        }
+        resetLocalOutputs();
+        
         try {
             setIsLocalInferenceRunning(true);
-            const summary = await LocalSummarizerModelService.summarizeText(manualText);
-            setLocalSummaryText(summary);
+            const finalSummary = await LocalSummarizerModelService.chunkAndSummarize(manualText, 512, 50, 50);
+            setLocalSummaryText(finalSummary);
         } catch (error) {
             console.error("Error summarizing manual text:", error);
         } finally {
             setIsLocalInferenceRunning(false);
         }
     };
-
+    
     const handleLocalOcrAndSummarize = async () => {
         resetLocalOutputs();
         const file = fileInputRef.current?.files?.[0];
@@ -165,20 +169,20 @@ export const MLFeatures = () => {
             alert("Please select an image first.");
             return;
         }
-
+        
         try {
             setIsLocalInferenceRunning(true);
             if (!LocalOcrModelService.modelHasLoaded() || !LocalSummarizerModelService.modelHasLoaded()) {
                 alert("Models not yet loaded.");
                 return;
             }
-
+            
             const imageElement = await readImageFileAsImageElement(file);
             const lines = await LocalOcrModelService.extractHandwrittenText(imageElement);
-
+            
             const combinedText = lines.join(" ");
             const summary = await LocalSummarizerModelService.summarizeText(combinedText);
-
+            
             setLocalCombinedText(summary);
         } catch (error) {
             console.error("Error in local OCR+Summarize:", error);
@@ -186,7 +190,7 @@ export const MLFeatures = () => {
             setIsLocalInferenceRunning(false);
         }
     };
-
+    
     // ===========================
     //       Helper Methods
     // ===========================
@@ -196,14 +200,14 @@ export const MLFeatures = () => {
         setSummaryText("");
         setCombinedResult("");
     };
-
+    
     // Reset local-based outputs
     const resetLocalOutputs = () => {
         setLocalOcrText([]);
         setLocalSummaryText("");
         setLocalCombinedText("");
     };
-
+    
     // Read file into an HTMLImageElement
     const readImageFileAsImageElement = async (file: File): Promise<HTMLImageElement> => {
         return new Promise((resolve, reject) => {
@@ -224,13 +228,11 @@ export const MLFeatures = () => {
             reader.readAsDataURL(file);
         });
     };
-
-    // If loading or running inference, display a Loader
+    
     if (isLoadingModels || isLocalInferenceRunning) {
         return <Loader />;
     }
-
-    // Finally, render the UI with the MLFeaturesView
+    
     return (
         <MLFeaturesView
             fileInputRef={fileInputRef}
