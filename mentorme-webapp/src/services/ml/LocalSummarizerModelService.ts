@@ -14,29 +14,20 @@ class LocalSummarizerModelServiceClass extends BaseLocalModelService {
         if (this.isModelLoaded && this.isTokenizerLoaded) return;
         const [ modelPath, tokenizerPath ] = modelUrls;
         
-        console.log("Loading T5 summarizer model...");
         this.model = await tf.loadGraphModel(modelPath);
         this.isModelLoaded = true;
         
-        console.log("Loading the T5 tokenizer...");
         const tokenizerJSON = await fetch(tokenizerPath).then((r) => r.json());
         this.tokenizer = new T5Tokenizer(tokenizerJSON, { type: "t5" });
         this.isTokenizerLoaded = true;
-        
-        console.log("T5 summarizer loaded successfully!");
     }
 
     /**
      * Summarize text with T5, using naive iterative decoding.
      */
-    public async summarizeText(
-        inputText: string,
-        maxNewTokens = 50,
-        maxTokensIn = 512
-    ): Promise<string> {
+    public async summarizeText(inputText: string, maxNewTokens = 50, maxTokensIn = 512): Promise<string> {
         if (!this.model || !this.isModelLoaded) throw new Error("T5 model not loaded. Call loadModel() first.");
         if (!this.tokenizer || !this.isTokenizerLoaded) throw new Error("Tokenizer not loaded. Call loadModel() first.");
-        await tf.setBackend("cpu");
         
         // 1) "summarize: " prefix
         const prompt = "summarize: " + inputText;
@@ -100,12 +91,7 @@ class LocalSummarizerModelServiceClass extends BaseLocalModelService {
      * 3) Optionally combine those partial summaries into one text.
      * 4) Summarize that combined text again for a final short result.
      */
-    public async chunkAndSummarize(
-        inputText: string,
-        maxChunkTokens = 512,
-        chunkSummaryTokens = 50,
-        finalSummaryTokens = 50
-    ): Promise<string> {
+    public async chunkAndSummarize(inputText: string, maxChunkTokens = 256, chunkSummaryTokens = 50): Promise<string> {
         if (!this.tokenizer || !this.isTokenizerLoaded) throw new Error("Tokenizer not loaded. Call loadModel() first.");
         
         // Step 1: Tokenize entire text.
@@ -118,7 +104,7 @@ class LocalSummarizerModelServiceClass extends BaseLocalModelService {
             const chunkEnd = start + maxChunkTokens;
             const chunkIds = fullIds.slice(start, chunkEnd);
             
-            // Summarize the chunk
+            // Convert chunk IDs back to text and summarize
             const chunkText = this.tokenizer.decode(chunkIds);
             const partialSummary = await this.summarizeText(
                 chunkText,
@@ -126,17 +112,10 @@ class LocalSummarizerModelServiceClass extends BaseLocalModelService {
                 maxChunkTokens
             );
             partialSummaries.push(partialSummary);
-            
             start = chunkEnd;
         }
         
-        // Step 4: Merge all partial summaries and run a final summarization
-        const combinedSummary = partialSummaries.join(" ");
-        return await this.summarizeText(
-            combinedSummary,
-            finalSummaryTokens,
-            maxChunkTokens
-        );
+        return partialSummaries.join(" ");
     }
 }
 

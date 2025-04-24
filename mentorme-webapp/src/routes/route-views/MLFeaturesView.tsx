@@ -101,13 +101,13 @@ export const MLFeaturesView = (props: MLFeaturesViewProps) => {
                                     className="btn btn-success"
                                     onClick={handleServerOcr}
                                 >
-                                    OCR Only (Server)
+                                    OCR (Server)
                                 </button>
                                 <button
                                     className="btn btn-success"
                                     onClick={handleServerSummarize}
                                 >
-                                    Summarize Only (Server)
+                                    Summarize (Server)
                                 </button>
                                 <button
                                     className="btn btn-success"
@@ -156,13 +156,13 @@ export const MLFeaturesView = (props: MLFeaturesViewProps) => {
                                     className="btn btn-success"
                                     onClick={handleLocalOcr}
                                 >
-                                    OCR Only (Local)
+                                    OCR (Local)
                                 </button>
                                 <button
                                     className="btn btn-success"
                                     onClick={handleLocalSummarize}
                                 >
-                                    Summarize from OCR (Local)
+                                    Summarize (Local)
                                 </button>
                                 <button
                                     className="btn btn-success"

@@ -13,7 +13,6 @@ export abstract class BaseLocalModelService {
         if (this.isModelLoaded) return;
         this.model = await loadLayersModel(modelUrls[0]);
         this.isModelLoaded = true;
-        console.log(`Model loaded successfully from: ${modelUrls[0]}`);
     }
 
     public modelHasLoaded(): boolean {

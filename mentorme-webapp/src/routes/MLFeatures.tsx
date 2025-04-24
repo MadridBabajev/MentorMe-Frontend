@@ -153,7 +153,7 @@ export const MLFeatures = () => {
         
         try {
             setIsLocalInferenceRunning(true);
-            const finalSummary = await LocalSummarizerModelService.chunkAndSummarize(manualText, 512, 50, 50);
+            const finalSummary = await LocalSummarizerModelService.chunkAndSummarize(manualText, 256, 50);
             setLocalSummaryText(finalSummary);
         } catch (error) {
             console.error("Error summarizing manual text:", error);
@@ -179,9 +179,9 @@ export const MLFeatures = () => {
             
             const imageElement = await readImageFileAsImageElement(file);
             const lines = await LocalOcrModelService.extractHandwrittenText(imageElement);
-            
             const combinedText = lines.join(" ");
-            const summary = await LocalSummarizerModelService.summarizeText(combinedText);
+            console.log(combinedText);
+            const summary = await LocalSummarizerModelService.chunkAndSummarize(combinedText, 256, 50);
             
             setLocalCombinedText(summary);
         } catch (error) {
