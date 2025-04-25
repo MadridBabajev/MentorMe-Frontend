@@ -17,7 +17,6 @@ export class AiModelsService extends BaseService {
             const formData = new FormData();
             formData.append("file", imageBlob);
 
-            // Example POST to /ocr endpoint
             const response = await this.axios.post<string[]>(ServiceEndpoints.OCR, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -25,6 +24,7 @@ export class AiModelsService extends BaseService {
             });
 
             if (response.status === 200) {
+                console.log(response.data);
                 return response.data;
             }
         } catch (error) {
@@ -37,6 +37,7 @@ export class AiModelsService extends BaseService {
         try {
             const response = await this.axios.post<string>(ServiceEndpoints.SUMMARIZATION, { text });
             if (response.status === 200) {
+                console.log(response.data);
                 return response.data;
             }
         } catch (error) {
@@ -57,6 +58,7 @@ export class AiModelsService extends BaseService {
             });
 
             if (response.status === 200) {
+                console.log(response.data);
                 return response.data;
             }
         } catch (error) {

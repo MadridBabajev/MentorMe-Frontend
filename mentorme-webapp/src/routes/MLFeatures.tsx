@@ -91,7 +91,7 @@ export const MLFeatures = () => {
     const handleServerSummarize = async () => {
         resetServerOutputs();
         const textToSummarize = recognizedText.length
-            ? recognizedText.join(" ")
+            ? manualText
             : "No recognized text yet, but let's pretend we have some text here.";
 
         const result = await aiApiService.callSummarizeOnServer(textToSummarize);

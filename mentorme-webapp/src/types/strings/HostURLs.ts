@@ -8,7 +8,7 @@ export enum HostURLs {
     SUBJECTS_CONTROLLER = "v1/subjects/",
     PAYMENT_METHOD_CONTROLLER = "v1/paymentMethod/",
     AVAILABILITY_CONTROLLER = "v1/availability/",
-    AI_MODELS_CONTROLLER = "v1/ai-models/",
+    AI_MODELS_CONTROLLER = "v1/aiModels/",
 
     // == Actions ==
     // Identity
