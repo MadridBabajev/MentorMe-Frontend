@@ -38,7 +38,7 @@ async function fetchModelSize(modelJsonUrl: string): Promise<number> {
 /**
  * Measure load time, model size, inference time, TFJS memory usage.
  *
- * @param loadFn  async fn that loads your model (e.g. () => tf.loadGraphModel(url))
+ * @param loadFn  async fn that loads the model (e.g. () => tf.loadGraphModel(url))
  * @param inferFn async fn that does inference and returns a tensor (or array)
  */
 export async function measureModel<T>(

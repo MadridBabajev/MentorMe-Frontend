@@ -90,7 +90,7 @@ export const MLFeatures = () => {
     
     const handleServerSummarize = async () => {
         resetServerOutputs();
-        const textToSummarize = recognizedText.length
+        const textToSummarize = manualText
             ? manualText
             : "No recognized text yet, but let's pretend we have some text here.";
 
